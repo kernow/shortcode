@@ -1,0 +1,5 @@
+[collapsible_list]
+[item title="Example title 1"]Example content 1[/item]
+[item title="Example title 2"]Example content 2[/item]
+[item title="Example title 3"]Example content 3[/item]
+[/collapsible_list]

@@ -1,0 +1,10 @@
+.timeline
+  %table
+    %tbody
+      %tr
+        %th{scope: :row}
+          = @options[:date]
+        %td.event
+          %span.description= @options[:title]
+          -if @options[:link]
+            %a.read_more{href: @options[:link]} Read More

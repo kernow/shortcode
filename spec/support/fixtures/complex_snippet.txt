@@ -1,0 +1,13 @@
+<h3>A page title</h3>
+<p>Some text</p>
+[collapsible_list]
+  [item title="Example title 1"]
+    [quote author="Jamie Dyer" title="King of England"]A quote[/quote]
+    I'm inbetween 2 quotes!
+    [quote author="Forrest Gump" title="Idiot"]Life is like...[/quote]
+  [/item]
+  [item title="Example title 2"]Example content 2[/item]
+  [item title="Example title 3"]Example content 3[/item]
+[/collapsible_list]
+
+<p>Some more text</p>

@@ -1,0 +1,4 @@
+[timeline_person date="Jan 2012" title="A real title" image="/images/person.jpg" name="Sam Smith" position="Presedent" link="http://blah.com"]
+A bit of body copy
+with a newline
+[/timeline_person]

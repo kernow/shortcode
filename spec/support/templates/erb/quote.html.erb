@@ -1,0 +1,12 @@
+<blockquote>
+<p class='quotation'><%= @text %></p>
+<% if @options[:author] || @options[:title] %>
+<p class='citation'>
+<% if @options[:author] %>
+<span class='author'><%= @options[:author] %></span>
+<% end %>
+<% if @options[:title] <% end %><span class='position'><%= @options[:title] %></span>
+<% end %>
+</p>
+<% end %>
+</blockquote>

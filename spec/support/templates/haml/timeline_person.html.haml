@@ -1,0 +1,15 @@
+.timeline
+  %table
+    %tbody
+      %tr
+        %th{scope: :row}
+          = @options[:date]
+        %td.team_news
+          %img{src: @options[:image]}
+          %h4= @options[:title]
+          %span.name= @options[:name]
+          %span.position= @options[:position]
+          -if @options[:link]
+            %a.read_more{href: @options[:link]} View Profile
+          .description
+            %p= @text
