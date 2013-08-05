@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jamie@kernowsoul.com"]
   spec.description   = "Gem for parsing wordpress style shortcodes"
   spec.summary       = "Gem for parsing wordpress style shortcodes"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/kernow/shortcode"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
