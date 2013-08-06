@@ -1,8 +1,8 @@
 %blockquote
   %p.quotation= @content
-  -if @options[:author] || @options[:title]
+  -if @attributes[:author] || @attributes[:title]
     %p.citation
-      -if @options[:author]
-        %span.author= @options[:author]
-      -if @options[:title]
-        %span.position= @options[:title]
+      -if @attributes[:author]
+        %span.author= @attributes[:author]
+      -if @attributes[:title]
+        %span.position= @attributes[:title]

@@ -1,14 +1,14 @@
 class Shortcode::Tag
 
-  def initialize(name, opts=[])
+  def initialize(name, attributes=[])
     @name = name.downcase
-    set_options opts
+    set_attributes attributes
   end
 
-  def set_options(opts)
+  def set_attributes(attributes)
     hash = {}
-    opts.each { |o| hash[o[:key].to_sym] = o[:value] }
-    @options = hash
+    attributes.each { |o| hash[o[:key].to_sym] = o[:value] }
+    @attributes = hash
   end
 
   def markup

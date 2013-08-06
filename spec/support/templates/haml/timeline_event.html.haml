@@ -3,8 +3,8 @@
     %tbody
       %tr
         %th{scope: :row}
-          = @options[:date]
+          = @attributes[:date]
         %td.event
-          %span.description= @options[:title]
-          -if @options[:link]
-            %a.read_more{href: @options[:link]} Read More
+          %span.description= @attributes[:title]
+          -if @attributes[:link]
+            %a.read_more{href: @attributes[:link]} Read More

@@ -3,13 +3,13 @@
     %tbody
       %tr
         %th{scope: :row}
-          = @options[:date]
+          = @attributes[:date]
         %td.team_news
-          %img{src: @options[:image]}
-          %h4= @options[:title]
-          %span.name= @options[:name]
-          %span.position= @options[:position]
-          -if @options[:link]
-            %a.read_more{href: @options[:link]} View Profile
+          %img{src: @attributes[:image]}
+          %h4= @attributes[:title]
+          %span.name= @attributes[:name]
+          %span.position= @attributes[:position]
+          -if @attributes[:link]
+            %a.read_more{href: @attributes[:link]} View Profile
           .description
             %p= @content

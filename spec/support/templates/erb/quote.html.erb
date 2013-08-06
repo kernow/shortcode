@@ -1,11 +1,11 @@
 <blockquote>
 <p class='quotation'><%= @content %></p>
-<% if @options[:author] || @options[:title] %>
+<% if @attributes[:author] || @attributes[:title] %>
 <p class='citation'>
-<% if @options[:author] %>
-<span class='author'><%= @options[:author] %></span>
+<% if @attributes[:author] %>
+<span class='author'><%= @attributes[:author] %></span>
 <% end %>
-<% if @options[:title] <% end %><span class='position'><%= @options[:title] %></span>
+<% if @attributes[:title] <% end %><span class='position'><%= @attributes[:title] %></span>
 <% end %>
 </p>
 <% end %>
