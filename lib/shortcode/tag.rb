@@ -18,8 +18,8 @@ class Shortcode::Tag
     raise Shortcode::TemplateNotFound, "Searched in:", template_files
   end
 
-  def wrap(text='')
-    @text = text
+  def wrap(content='')
+    @content = content
     render_template
   end
 

@@ -44,14 +44,14 @@ Or install it yourself as:
 # Templates
 
 Each shortcode tag needs a template file to translate the shortcode into html. Templates can be written in HAML or erb and work in
-a similar way to views in Rails. The main content of a tag is passed via the instance variable @text. Any attributes defined on a tag are passed in via an @options hash. For instance a quote shortcode might look like this:
+a similar way to views in Rails. The main content of a tag is passed via the instance variable @content. Any attributes defined on a tag are passed in via an @options hash. For instance a quote shortcode might look like this:
 
     [quote author="Homer Simpson"]Doh![/quote]
 
 And the haml template to render the shortcode
 
     %blockquote
-      %p.quotation= @text
+      %p.quotation= @content
       -if @options[:author]
         %p.citation
           %span.author= @options[:author]
