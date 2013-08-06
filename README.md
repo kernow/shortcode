@@ -1,6 +1,6 @@
 # Shortcode
 
-A ruby gem for parsing Wordpress style shortcodes. The gem uses a PEG (Parsing Expression Grammar) parser rather than using regular expressions so its easier to understand, test and extend.
+A ruby gem for parsing Wordpress style shortcodes. The gem uses a [PEG](http://en.wikipedia.org/wiki/Parsing_expression_grammar) (Parsing Expression Grammar) parser rather than using regular expressions so its easier to understand, test and extend.
 
 ## Installation
 
@@ -26,10 +26,21 @@ $ gem install shortcode
 
 ### Example
 
+Shortcode can be used in one of two ways, the parser and transformer can be called seperatly or the `process` method can be used which performs both the parsing and transforming and returns the result.
+
+The former is good if you want to work with the intemediary hash returned by the parser
+
 ```ruby
 parser = Shortcode::Parser.new
 transformer = Shortcode::Transformer.new
-transformer.apply(parser.parse("[quote]Hello World[/quote]"))
+parsed_hash = parser.parse("[quote]Hello World[/quote]")
+transformer.apply(parsed_hash)
+```
+
+The shorthand wraps up the above code into a single method call for convenience
+
+```ruby
+Shortcode.process("[quote]Hello World[/quote]")
 ```
 
 ### Configuration

@@ -25,6 +25,20 @@ module Shortcode
     yield self
   end
 
+  def self.process(code)
+    transformer.apply(parser.parse(code))
+  end
+
+  private
+
+    def self.parser
+      @@parser ||= Shortcode::Parser.new
+    end
+
+    def self.transformer
+      @@transformer ||= Shortcode::Transformer.new
+    end
+
 end
 
 require 'shortcode/version'
