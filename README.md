@@ -65,7 +65,7 @@ end
 ### Templates
 
 Each shortcode tag needs a template file to translate the shortcode into html. Templates can be written in HAML or erb and work in
-a similar way to views in Rails. The main content of a tag is passed via the instance variable `@content`. Any attributes defined on a tag are passed in via an `@attributes` hash. For instance a quote shortcode might look like this:
+a similar way to views in Rails. The main content of a tag is passed via the instance variable `@content`. Any attributes defined on a tag are passed in via an `@attributes` hash, shortcodes can have any number of attributes. For instance a quote shortcode might look like this:
 
     [quote author="Homer Simpson"]Doh![/quote]
 
@@ -78,6 +78,17 @@ And the haml template to render the shortcode
     %p.citation
       %span.author= @attributes[:author]
 ```
+
+Shortcodes can be nested inside other shortcodes, there are no limits imposed on the nesting depth. This can be useful when creating complex content such as a collapsible list that can have any content inside each element. We could have the following shortcodes
+
+    [collapsible_list]
+      [item]
+        [youtube id="12345"]
+      [/item]
+      [item]Hellow World[/item]
+    [/collapsible_list]
+
+Three templates would be required to support the above content, `[:collapsible_list, :item, :youtube]`. Each template is rendered in isolation and has no knowledge of parent or child elements.
 
 ## Contributing
 
