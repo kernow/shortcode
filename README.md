@@ -55,10 +55,10 @@ Shortcode.setup do |config|
   config.template_path = "support/templates/haml"
 
   # a list of block tags to support e.g. [quote]Hello World[/quote]
-  config.block_tags = [:quote, :collapsible_list, :item, :timeline_person]
+  config.block_tags = [:quote]
 
-  # a list of self closing tags to support e.g. [gallery]
-  config.self_closing_tags = [:timeline_event, :timeline_info]
+  # a list of self closing tags to support e.g. [youtube id="12345"]
+  config.self_closing_tags = [:youtube]
 end
 ```
 

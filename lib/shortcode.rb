@@ -15,11 +15,11 @@ module Shortcode
 
   # Set the supported block_tags
   mattr_accessor :block_tags
-  @@block_tags = [:quote, :collapsible_list, :item, :timeline_person]
+  @@block_tags = [:quote]
 
   # Set the supported self_closing_tags
   mattr_accessor :self_closing_tags
-  @@self_closing_tags = [:timeline_event, :timeline_info]
+  @@self_closing_tags = [:youtube]
 
   def self.setup
     yield self
