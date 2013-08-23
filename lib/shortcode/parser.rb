@@ -1,7 +1,7 @@
 class Shortcode::Parser < Parslet::Parser
 
-  rule(:block_tag)        { match_any_of Shortcode.block_tags }
-  rule(:self_closing_tag) { match_any_of Shortcode.self_closing_tags }
+  rule(:block_tag)        { match_any_of Shortcode.configuration.block_tags }
+  rule(:self_closing_tag) { match_any_of Shortcode.configuration.self_closing_tags }
 
   rule(:quotes) { str('"') }
 

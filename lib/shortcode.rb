@@ -1,47 +1,35 @@
 require 'parslet'
 require 'haml'
 require 'erb'
-require 'facets/module/mattr'
 
 module Shortcode
+  extend self
 
-  # Sets the template parser to use, supports :erb and :haml, default is :haml
-  mattr_accessor :template_parser
-  @@template_parser = :haml
+  attr_accessor :configuration
 
-  # Sets the template parser to use, supports :erb and :haml, default is :haml
-  mattr_accessor :template_path
-  @@template_path = "app/views/shortcode_templates"
-
-  # Set the supported block_tags
-  mattr_accessor :block_tags
-  @@block_tags = [:quote]
-
-  # Set the supported self_closing_tags
-  mattr_accessor :self_closing_tags
-  @@self_closing_tags = [:youtube]
-
-  def self.setup
-    yield self
+  def setup
+    self.configuration ||= Configuration.new
+    yield configuration
   end
 
-  def self.process(code)
+  def process(code)
     transformer.apply(parser.parse(code))
   end
 
   private
 
-    def self.parser
+    def parser
       @@parser ||= Shortcode::Parser.new
     end
 
-    def self.transformer
+    def transformer
       @@transformer ||= Shortcode::Transformer.new
     end
 
 end
 
 require 'shortcode/version'
+require 'shortcode/configuration'
 require 'shortcode/parser'
 require 'shortcode/transformer'
 require 'shortcode/tag'
