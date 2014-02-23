@@ -90,6 +90,48 @@ Shortcodes can be nested inside other shortcodes, there are no limits imposed on
 
 Three templates would be required to support the above content, `[:collapsible_list, :item, :youtube]`. Each template is rendered in isolation and has no knowledge of parent or child elements.
 
+### Presenters
+
+Sometimes the data passed to the template from the shortcode it not enough. Lets say you want to render a gallery of images using id numbers of images stored in a database, e.g. `[gallery ids="1,2,3,4"]`. This is where presenters can help, they allow you to modify the `@content` and `@attributes` variables before they are sent to the template for rendering. Presenters are simple classes that define four methods. The class method `for` should return the name of the shortcode (as a symbol) it should be applied to. The classes `initialize` method received the `attributes` and `content` variables. Finally the class should define `content` and `attributes` methods.
+
+In a rails app you could return image records to the template using something like this:
+
+```ruby
+class CustomPrsenter
+
+  def self.for
+    :quote
+  end
+
+  def initialize(attributes, content)
+    @attributes = attributes
+    @content = content
+  end
+
+  def content
+    @content
+  end
+
+  def attributes
+    { images: images }
+  end
+
+  private
+
+    def images
+      @attributes.ids.split(',').collect { |n| Image.find(n) }
+    end
+end
+```
+
+#### Registering presenters
+
+To register a presenter simply call `Shortcode.register_presenter` passing the presenter class e.g.
+
+```ruby
+Shortcode.register_presenter(CustomPrsenter)
+```
+
 ## Contributing
 
 1. Fork it

@@ -1,14 +1,16 @@
 class Shortcode::Tag
 
-  def initialize(name, attributes=[])
-    @name = name.downcase
-    set_attributes attributes
+  def initialize(name, attributes=[], content='')
+    @name       = name.downcase
+    presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content
+    @attributes = presenter.attributes
+    @content    = presenter.content
   end
 
   def set_attributes(attributes)
     hash = {}
     attributes.each { |o| hash[o[:key].to_sym] = o[:value] }
-    @attributes = hash
+    hash
   end
 
   def markup
@@ -18,8 +20,7 @@ class Shortcode::Tag
     raise Shortcode::TemplateNotFound, "Searched in:", template_files
   end
 
-  def wrap(content='')
-    @content = content
+  def render
     render_template
   end
 

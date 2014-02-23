@@ -7,7 +7,7 @@ describe Shortcode::Tag do
     let(:tag) { Shortcode::Tag.new('doesnt_exist') }
 
     it "raises a TemplateNotFound error when the file doesn't exists" do
-      expect { tag.wrap }.to raise_error(Shortcode::TemplateNotFound)
+      expect { tag.render }.to raise_error(Shortcode::TemplateNotFound)
     end
 
   end
@@ -23,7 +23,7 @@ describe Shortcode::Tag do
     end
 
     it "raises a TemplateNotFound error when the file doesn't exists" do
-      expect { tag.wrap }.to raise_error(Shortcode::TemplateParserNotSupported)
+      expect { tag.render }.to raise_error(Shortcode::TemplateParserNotSupported)
     end
 
   end
