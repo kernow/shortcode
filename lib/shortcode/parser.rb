@@ -31,6 +31,7 @@ class Shortcode::Parser < Parslet::Parser
   private
 
     def match_any_of(tags)
+      return str('') if tags.length < 1
       tags.map{ |tag| str(tag) }.inject do |tag_chain, tag|
         tag_chain.send :|, tag
       end

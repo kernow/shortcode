@@ -28,4 +28,37 @@ describe Shortcode do
       Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output.gsub("\n",'')
     end
   end
+
+  context "configuration" do
+
+    describe "block_tags" do
+
+      before do
+        Shortcode.setup do |config|
+          config.block_tags = []
+        end
+      end
+
+      it "handles an empty array" do
+        expect { Shortcode.process(simple_quote) }.to_not raise_error
+      end
+
+    end
+
+    describe "self_closing_tags" do
+
+      before do
+        Shortcode.setup do |config|
+          config.self_closing_tags = []
+        end
+      end
+
+      it "handles an empty array" do
+        expect { Shortcode.process(simple_quote) }.to_not raise_error
+      end
+
+    end
+
+  end
+
 end

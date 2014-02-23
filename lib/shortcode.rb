@@ -19,11 +19,11 @@ module Shortcode
   private
 
     def parser
-      @@parser ||= Shortcode::Parser.new
+      @@parser = Shortcode::Parser.new
     end
 
     def transformer
-      @@transformer ||= Shortcode::Transformer.new
+      @@transformer = Shortcode::Transformer.new
     end
 
 end
