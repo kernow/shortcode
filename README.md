@@ -79,6 +79,8 @@ And the haml template to render the shortcode
       %span.author= @attributes[:author]
 ```
 
+If using the gem within a Rails project you can use the Rails helper methods within template files.
+
 Shortcodes can be nested inside other shortcodes, there are no limits imposed on the nesting depth. This can be useful when creating complex content such as a collapsible list that can have any content inside each element. We could have the following shortcodes
 
     [collapsible_list]
