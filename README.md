@@ -121,7 +121,7 @@ class CustomPresenter
   private
 
     def images
-      Image.where("id IN (?)", @attributes.ids)
+      Image.where("id IN (?)", @attributes[:ids])
     end
 end
 ```
