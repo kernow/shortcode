@@ -99,7 +99,7 @@ Sometimes the data passed to the template from the shortcode it not enough. Lets
 In a rails app you could return image records to the template using something like this:
 
 ```ruby
-class CustomPrsenter
+class CustomPresenter
 
   def self.for
     :quote
@@ -121,7 +121,7 @@ class CustomPrsenter
   private
 
     def images
-      @attributes.ids.split(',').collect { |n| Image.find(n) }
+      Image.where("id IN (?)", @attributes.ids)
     end
 end
 ```
