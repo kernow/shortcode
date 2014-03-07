@@ -15,7 +15,7 @@ matrix:
     - rvm: jruby-head
   exclude:
     - rvm: 1.9.2
-      gemfile: gemfiles/4.0.gemfile
+      gemfile: gemfiles/rails_4.0.gemfile
 
 gemfile:
   - gemfiles/rails_3.0.gemfile
