@@ -133,7 +133,7 @@ end
 To register a presenter simply call `Shortcode.register_presenter` passing the presenter class e.g.
 
 ```ruby
-Shortcode.register_presenter(CustomPrsenter)
+Shortcode.register_presenter(CustomPresenter)
 ```
 
 ## Contributing
