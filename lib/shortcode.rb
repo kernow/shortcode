@@ -40,4 +40,4 @@ require 'shortcode/presenter'
 require 'shortcode/transformer'
 require 'shortcode/tag'
 require 'shortcode/exceptions'
-require 'shortcode/railtie' if defined?(Rails)
+require 'shortcode/railtie' if defined?(Rails) && Rails::VERSION::MAJOR >= 3
