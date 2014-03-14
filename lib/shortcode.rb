@@ -6,7 +6,7 @@ module Shortcode
   extend self
 
   attr_accessor :configuration, :presenters
-  @@presenters = {}
+  self.presenters = {}
 
   def setup
     self.configuration ||= Configuration.new
