@@ -8,7 +8,6 @@ module Shortcode
   attr_accessor :configuration, :presenters
   @@presenters = {}
 
-
   def setup
     self.configuration ||= Configuration.new
     yield configuration
