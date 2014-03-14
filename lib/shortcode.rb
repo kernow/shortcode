@@ -41,3 +41,5 @@ require 'shortcode/transformer'
 require 'shortcode/tag'
 require 'shortcode/exceptions'
 require 'shortcode/railtie' if defined?(Rails) && Rails::VERSION::MAJOR >= 3
+
+Shortcode.setup {}
