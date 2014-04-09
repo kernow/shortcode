@@ -25,6 +25,22 @@ describe Shortcode::Parser do
     end
   end
 
+  it "parses quotes using custom quotations" do
+    Shortcode.setup do |config|
+      config.quotes = "'"
+    end
+
+    quotes.each do |string|
+      # Change double quotes to single quotes in the fixture
+      parser.should parse(string.gsub '"', "'")
+    end
+
+    # Reset configuration to default
+    Shortcode.setup do |config|
+      config.quotes = '"'
+    end
+  end
+
   it "parses list shortcodes" do
     collapsible_lists.each do |string|
       parser.should parse(string)
