@@ -11,10 +11,14 @@ class Shortcode::Configuration
   # Set the supported self_closing_tags
   attr_accessor :self_closing_tags
 
+  # Set the quotation sign used for attribute values. Defaults to double quote (")
+  attr_accessor :quotes
+
   def initialize
     @template_parser    = :haml
     @template_path      = "app/views/shortcode_templates"
     @block_tags         = []
     @self_closing_tags  = []
+    @quotes             = '"'
   end
 end
