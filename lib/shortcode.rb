@@ -3,32 +3,31 @@ require 'haml'
 require 'erb'
 
 module Shortcode
-  extend self
 
-  attr_accessor :configuration, :presenters
-  self.presenters = {}
+  class << self
+    attr_writer :configuration, :presenters
+  end
 
-  def setup
-    self.configuration ||= Configuration.new
+  def self.process(string)
+    Shortcode::Processor.new.process string
+  end
+
+  def self.setup
     yield configuration
   end
 
-  def process(code)
-    transformer.apply(parser.parse(code))
-  end
-
-  def register_presenter(presenter)
-    self.presenters[presenter.for.to_sym] = presenter
+  def self.register_presenter(presenter)
+    presenters[presenter.for.to_sym] = presenter
   end
 
   private
 
-    def parser
-      @@parser = Shortcode::Parser.new
+    def self.presenters
+      @presenters ||= {}
     end
 
-    def transformer
-      @@transformer = Shortcode::Transformer.new
+    def self.configuration
+      @configuration ||= Configuration.new
     end
 
 end
@@ -37,6 +36,7 @@ require 'shortcode/version'
 require 'shortcode/configuration'
 require 'shortcode/parser'
 require 'shortcode/presenter'
+require 'shortcode/processor'
 require 'shortcode/transformer'
 require 'shortcode/tag'
 require 'shortcode/exceptions'
