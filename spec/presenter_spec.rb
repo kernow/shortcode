@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'parslet/rig/rspec'
 require 'pp'
 
-class MyPrsenter
+class MyPresenter
 
   def self.for
     :quote
@@ -30,10 +30,10 @@ describe Shortcode::Presenter do
   describe "using a custom presenter" do
 
     before do
-      Shortcode.register_presenter MyPrsenter
+      Shortcode.register_presenter MyPresenter
     end
 
-    it "uses the custome attributes" do
+    it "uses the custom attributes" do
       Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output.gsub("\n",'')
     end
 
