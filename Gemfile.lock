@@ -3,7 +3,7 @@ PATH
   specs:
     shortcode (0.1.2)
       haml (~> 4.0)
-      parslet (= 1.5.0)
+      parslet (= 1.6.0)
 
 GEM
   remote: https://rubygems.org/
@@ -16,7 +16,7 @@ GEM
     diff-lcs (1.2.4)
     haml (4.0.5)
       tilt
-    parslet (1.5.0)
+    parslet (1.6.0)
       blankslate (~> 2.0)
     rake (10.1.0)
     rspec (2.14.1)
