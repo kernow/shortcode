@@ -28,21 +28,10 @@ $ gem install shortcode
 
 ### Example
 
-Shortcode can be used in one of two ways, the parser and transformer can be called seperatly or the `process` method can be used which performs both the parsing and transforming and returns the result.
-
-The shorthand wraps up the above code into a single method call for convenience
+Shortcode is very simple to use, simply call the `process` method and pass it a string containing shortcode markup.
 
 ```ruby
 Shortcode.process("[quote]Hello World[/quote]")
-```
-
-The longer form is good if you want to work with the intemediary hash returned by the parser
-
-```ruby
-parser = Shortcode::Parser.new
-transformer = Shortcode::Transformer.new
-parsed_hash = parser.parse("[quote]Hello World[/quote]")
-transformer.apply(parsed_hash)
 ```
 
 ### Configuration
@@ -99,20 +88,21 @@ Three templates would be required to support the above content, `[:collapsible_l
 
 ### Presenters
 
-Sometimes the data passed to the template from the shortcode it not enough. Lets say you want to render a gallery of images using id numbers of images stored in a database, e.g. `[gallery ids="1,2,3,4"]`. This is where presenters can help, they allow you to modify the `@content` and `@attributes` variables before they are sent to the template for rendering. Presenters are simple classes that define four methods. The class method `for` should return the name of the shortcode (as a symbol) it should be applied to. The classes `initialize` method received the `attributes` and `content` variables. Finally the class should define `content` and `attributes` methods.
+Sometimes the data passed to the template from the shortcode it not enough. Lets say you want to render a gallery of images using id numbers of images stored in a database, e.g. `[gallery ids="1,2,3,4"]`. This is where presenters can help, they allow you to modify the `@content` and `@attributes` variables before they are sent to the template for rendering. Presenters are simple classes that define four methods. The class method `for` should return the name of the shortcode (as a symbol) it should be applied to. The classes `initialize` method received the `attributes`, `content` and `additional_attributes` variables. Finally the class should define `content` and `attributes` methods.
 
 In a rails app you could return image records to the template using something like this:
 
 ```ruby
-class CustomPresenter
+class GalleryPresenter
 
   def self.for
-    :quote
+    :gallery
   end
 
-  def initialize(attributes, content)
+  def initialize(attributes, content, additional_attributes)
     @attributes = attributes
     @content = content
+    @additional_attributes = additional_attributes
   end
 
   def content
@@ -129,6 +119,43 @@ class CustomPresenter
       Image.where("id IN (?)", @attributes[:ids])
     end
 end
+```
+
+#### Using additional attributes
+
+At times you may want to pass through additional attributes to a presenter, for instance if you have a [gallery] shortcode tag and you want to pull out all images for a post, this can be achived using additional attributes with a presenter.
+
+```ruby
+class GalleryPresenter
+
+  def self.for
+    :gallery
+  end
+
+  def initialize(attributes, content, additional_attributes)
+    @attributes = attributes
+    @content = content
+    @additional_attributes = additional_attributes
+  end
+
+  def content
+    @content
+  end
+
+  def attributes
+    { images: images }
+  end
+
+  private
+
+    def images
+      @additional_attributes[:images].map &:url
+    end
+end
+
+# The hash containing the images attribute is passed through to the presenter as the additional_attributes argument
+Shortcode.process('[gallery]', { images: @post.images })
+
 ```
 
 #### Registering presenters

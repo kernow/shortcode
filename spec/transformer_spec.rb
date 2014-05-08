@@ -33,7 +33,7 @@ describe Shortcode do
 
     it "converts into html" do
       obj = parser.parse(simple_quote)
-      html = transformer.apply obj
+      html = transformer.apply obj, additional_attributes: nil
       html.should == simple_quote_output
     end
 
@@ -42,7 +42,7 @@ describe Shortcode do
   context "full_quote" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(full_quote))
+      html = transformer.apply(parser.parse(full_quote), additional_attributes: nil)
       html.should == full_quote_output
     end
 
@@ -51,7 +51,7 @@ describe Shortcode do
   context "quote_with_extras" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(quote_with_extras))
+      html = transformer.apply(parser.parse(quote_with_extras), additional_attributes: nil)
       html.should == quote_with_extras_output
     end
 
@@ -60,7 +60,7 @@ describe Shortcode do
   context "simple_list" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(simple_list))
+      html = transformer.apply(parser.parse(simple_list), additional_attributes: nil)
       html.should == simple_list_output
     end
 
@@ -69,7 +69,7 @@ describe Shortcode do
   context "timeline_event" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(timeline_event))
+      html = transformer.apply(parser.parse(timeline_event), additional_attributes: nil)
       html.should == timeline_event_output
     end
 
@@ -78,7 +78,7 @@ describe Shortcode do
   context "timeline_info" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(timeline_info))
+      html = transformer.apply(parser.parse(timeline_info), additional_attributes: nil)
       html.should == timeline_info_output
     end
 
@@ -87,7 +87,7 @@ describe Shortcode do
   context "timeline_person" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(timeline_person))
+      html = transformer.apply(parser.parse(timeline_person), additional_attributes: nil)
       html.should == timeline_person_output
     end
 
@@ -96,7 +96,7 @@ describe Shortcode do
   context "complex_snippet" do
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(complex_snippet))
+      html = transformer.apply(parser.parse(complex_snippet), additional_attributes: nil)
       html.should == complex_snippet_output
     end
   end
@@ -111,7 +111,7 @@ describe Shortcode do
     end
 
     it "converts into html" do
-      html = transformer.apply(parser.parse(simple_quote))
+      html = transformer.apply(parser.parse(simple_quote), additional_attributes: nil)
       html.gsub("\n",'').should == simple_quote_output.gsub("\n",'')
     end
   end

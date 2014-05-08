@@ -1,7 +1,7 @@
 class Shortcode::Processor
 
-  def process(string)
-    transformer.apply parser.parse(string)
+  def process(string, additional_attributes=nil)
+    transformer.apply parser.parse(string), additional_attributes: additional_attributes
   end
 
   private

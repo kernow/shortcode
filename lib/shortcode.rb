@@ -8,8 +8,8 @@ module Shortcode
     attr_writer :configuration, :presenters
   end
 
-  def self.process(string)
-    Shortcode::Processor.new.process string
+  def self.process(string, additional_attributes=nil)
+    Shortcode::Processor.new.process string, additional_attributes
   end
 
   def self.setup

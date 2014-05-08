@@ -1,8 +1,8 @@
 class Shortcode::Tag
 
-  def initialize(name, attributes=[], content='')
+  def initialize(name, attributes=[], content='', additional_attributes=nil)
     @name       = name.downcase
-    presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content
+    presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content, additional_attributes
     @attributes = presenter.attributes
     @content    = presenter.content
   end

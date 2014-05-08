@@ -32,7 +32,7 @@ require 'benchmark'
 
 #     it "runs quickly" do
 #       Benchmark.realtime {
-#         transformer.apply(parsed_hash)
+#         transformer.apply(parsed_hash, additional_attributes: nil)
 #       }.should < 0.1
 #     end
 
