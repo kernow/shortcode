@@ -61,6 +61,9 @@ Shortcode.setup do |config|
 
   # a list of self closing tags to support e.g. [youtube id="12345"]
   config.self_closing_tags = [:youtube]
+
+  # the type of quotes to use for attribute values, default is double quotes (")
+  config.quotes = '"'
 end
 ```
 
