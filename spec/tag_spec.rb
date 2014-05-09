@@ -28,4 +28,42 @@ describe Shortcode::Tag do
 
   end
 
+  context "templates from strings" do
+
+    let(:tag) { Shortcode::Tag.new('from_string', [{ key: 'string', value: 'batman' }]) }
+
+    before(:each) do
+      Shortcode.setup do |config|
+        config.template_parser = :erb
+        config.templates = {
+          from_string: '<p><%= @attributes[:string] %></p>'
+        }
+      end
+    end
+
+    it "renders a template from a string" do
+      tag.render.should == '<p>batman</p>'
+    end
+
+  end
+
+  context "when the template is missing from the config" do
+
+    let(:tag) { Shortcode::Tag.new('missing', [{ key: 'string', value: 'batman' }]) }
+
+    before(:each) do
+      Shortcode.setup do |config|
+        config.template_parser = :erb
+        config.templates = {
+          from_string: '<p><%= @attributes[:string] %></p>'
+        }
+      end
+    end
+
+    it "raises an error" do
+      expect { tag.render }.to raise_error(Shortcode::TemplateNotFound)
+    end
+
+  end
+
 end

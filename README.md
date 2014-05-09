@@ -42,8 +42,12 @@ Shortcode.setup do |config|
   # the template parser to use
   config.template_parser = :haml # :erb or :haml supported, :haml is default
 
-   # location of the template files
+   # location of the template files, default is "app/views/shortcode_templates"
   config.template_path = "support/templates/haml"
+
+   # a hash of templates passed as strings, if this is set it overrides the
+   # above template_path option. The default is nil
+  config.templates = { gallery: 'template code' }
 
   # a list of block tags to support e.g. [quote]Hello World[/quote]
   config.block_tags = [:quote]
@@ -58,7 +62,7 @@ end
 
 ### Templates
 
-Each shortcode tag needs a template file to translate the shortcode into html. Templates can be written in HAML or erb and work in
+Each shortcode tag needs a template in order to translate the shortcode into html (or other output). Templates can be written in HAML or erb and work in
 a similar way to views in Rails. The main content of a tag is passed via the instance variable `@content`. Any attributes defined on a tag are passed in via an `@attributes` hash, shortcodes can have any number of attributes. For instance a quote shortcode might look like this:
 
     [quote author="Homer Simpson"]Doh![/quote]
@@ -73,7 +77,7 @@ And the haml template to render the shortcode
       %span.author= @attributes[:author]
 ```
 
-If using the gem within a Rails project you can use the Rails helper methods within template files.
+If using the gem within a Rails project you can use the Rails helper methods within templates.
 
 Shortcodes can be nested inside other shortcodes, there are no limits imposed on the nesting depth. This can be useful when creating complex content such as a collapsible list that can have any content inside each element. We could have the following shortcodes
 
@@ -85,6 +89,28 @@ Shortcodes can be nested inside other shortcodes, there are no limits imposed on
     [/collapsible_list]
 
 Three templates would be required to support the above content, `[:collapsible_list, :item, :youtube]`. Each template is rendered in isolation and has no knowledge of parent or child elements.
+
+There are 2 ways templates can be used with Shortcode, the default it to load templates from the file system, an alternative approach is to pass templates to the setup
+block as strings.
+
+#### Templates loaded from the file system
+
+Simply create files with the extension or .haml or .erb with a filename the same as the shortcode tag, e.g. gallery.haml would render a [gallery] shortcode tag. The default
+location for template files is `app/views/shortcode_templates`, if you want to load tempaltes from a different location use the `template_path` config option.
+
+#### Templates set as configuration options
+
+The alternative way to define tempaltes is to set them using the `templates` config option, this option can take a hash with keys of the same name as the shortcode tags and
+values containing a template string. For instance:
+
+```ruby
+Shortcode.setup do |config|
+  config.templates = { gallery: 'template code' }
+end
+```
+
+If the `templates` config option is set all templates will be loaded from this hash, if a shortcode is encountered without a matching key in the `templates` config option
+an exception will be raised.
 
 ### Presenters
 

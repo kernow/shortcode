@@ -14,6 +14,7 @@ class Shortcode::Tag
   end
 
   def markup
+    return markup_from_config unless Shortcode.configuration.templates.nil?
     template_files.each do |path|
       return File.read(path) if File.file? path
     end
@@ -34,6 +35,14 @@ class Shortcode::Tag
         ERB.new(markup).result(binding)
       else
         raise Shortcode::TemplateParserNotSupported, Shortcode.configuration.template_parser
+      end
+    end
+
+    def markup_from_config
+      if Shortcode.configuration.templates.has_key? @name.to_sym
+        Shortcode.configuration.templates[@name.to_sym]
+      else
+        raise Shortcode::TemplateNotFound, "Shortcode.configuration.templates does not contain the key #{@name.to_sym}"
       end
     end
 
