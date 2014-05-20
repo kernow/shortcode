@@ -1,4 +1,8 @@
 $LOAD_PATH.unshift File.dirname(__FILE__)
+
+require 'coveralls'
+Coveralls.wear!
+
 require 'rspec'
 require 'rails'
 require 'action_view'

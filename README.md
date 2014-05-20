@@ -5,6 +5,7 @@ A ruby gem for parsing Wordpress style shortcodes. The gem uses a [PEG](http://e
 [![Gem Version](https://badge.fury.io/rb/shortcode.svg)](http://badge.fury.io/rb/shortcode)
 [![Build Status](https://travis-ci.org/kernow/shortcode.png?branch=master)](https://travis-ci.org/kernow/shortcode)
 [![Code Climate](https://codeclimate.com/github/kernow/shortcode.png)](https://codeclimate.com/github/kernow/shortcode)
+[![Coverage Status](https://coveralls.io/repos/kernow/shortcode/badge.png)](https://coveralls.io/r/kernow/shortcode)
 
 ## Installation
 
