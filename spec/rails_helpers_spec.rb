@@ -39,7 +39,7 @@ describe "rails helpers" do
       end
     end
 
-    it "are accessible within haml templates" do
+    it "are accessible within erb templates" do
       Shortcode.process(template).gsub("\n",'').should == erb_output.gsub("\n",'')
     end
 
