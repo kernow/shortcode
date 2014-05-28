@@ -46,7 +46,7 @@ Shortcode.process("[quote]Hello World[/quote]")
 Shortcode.setup do |config|
 
   # the template parser to use
-  config.template_parser = :haml # :erb or :haml supported, :haml is default
+  config.template_parser = :haml # :erb, :haml, :slim supported, :haml is default
 
    # location of the template files, default is "app/views/shortcode_templates"
   config.template_path = "support/templates/haml"

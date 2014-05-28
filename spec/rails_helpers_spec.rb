@@ -3,8 +3,24 @@ require 'spec_helper'
 describe "rails helpers" do
 
   let(:template)    { load_fixture :rails_helper }
+  let(:slim_output) { load_fixture :rails_helper_output_slim, :html }
   let(:haml_output) { load_fixture :rails_helper_output_haml, :html }
   let(:erb_output)  { load_fixture :rails_helper_output_erb, :html }
+
+  describe "slim" do
+
+    before(:each) do
+      Shortcode.setup do |config|
+        config.template_parser = :slim
+        config.template_path = File.join File.dirname(__FILE__), "support/templates/slim"
+      end
+    end
+
+    it "are accessible within slim templates" do
+      Shortcode.process(template).gsub("\n",'').should == slim_output.gsub("\n",'')
+    end
+
+  end
 
   describe "haml" do
 

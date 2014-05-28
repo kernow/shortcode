@@ -1,5 +1,10 @@
 require 'parslet'
 require 'haml'
+
+begin
+  require 'slim'
+rescue LoadError; end
+
 require 'erb'
 
 module Shortcode

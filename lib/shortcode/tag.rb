@@ -29,6 +29,8 @@ class Shortcode::Tag
 
     def render_template
       case Shortcode.configuration.template_parser
+      when :slim
+        Slim::Template.new { markup }.render(self)
       when :haml
         Haml::Engine.new(markup, ugly: true).render(binding)
       when :erb
