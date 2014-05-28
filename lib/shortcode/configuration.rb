@@ -1,8 +1,8 @@
 class Shortcode::Configuration
-  # Sets the template parser to use, supports :erb and :haml, default is :haml
+  # Sets the template parser to use, supports :erb, :haml, and :slim, default is :haml
   attr_accessor :template_parser
 
-  # Sets the template parser to use, supports :erb and :haml, default is :haml
+  # Sets the path to search for template files
   attr_accessor :template_path
 
   # Allows templates to be set from strings rather than read from the filesystem
