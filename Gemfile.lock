@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shortcode (0.3.2)
+    shortcode (0.3.3)
       haml (~> 4.0)
       parslet (= 1.6.0)
 

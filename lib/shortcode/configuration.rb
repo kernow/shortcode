@@ -1,6 +1,19 @@
 class Shortcode::Configuration
+  # This stores if the parser has been set in a configuration block so that deprication
+  # warnings can be issued
+  attr_accessor :parser_set
+
+  def haml_deprecation_warning
+    "[DEPRECATION] HAML will no longer be the default template parser in version 0.4 of Shortcode. A HAML template has been used without explicitly specifying HAML as the template parser in a setup block. Please set config.template_parser = :haml to suppress this warning"
+  end
+
   # Sets the template parser to use, supports :erb, :haml, and :slim, default is :haml
   attr_accessor :template_parser
+
+  def template_parser=(parser)
+    @parser_set = true
+    @template_parser = parser
+  end
 
   # Sets the path to search for template files
   attr_accessor :template_path
@@ -24,5 +37,6 @@ class Shortcode::Configuration
     @block_tags         = []
     @self_closing_tags  = []
     @quotes             = '"'
+    @parser_set         = false
   end
 end

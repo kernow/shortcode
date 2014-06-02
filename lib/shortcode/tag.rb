@@ -32,6 +32,7 @@ class Shortcode::Tag
       when :slim
         Slim::Template.new { markup }.render(self)
       when :haml
+        warn Shortcode.configuration.haml_deprecation_warning unless Shortcode.configuration.parser_set
         Haml::Engine.new(markup, ugly: true).render(binding)
       when :erb
         ERB.new(markup).result(binding)

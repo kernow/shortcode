@@ -1,0 +1,8 @@
+blockquote
+  p.quotation = @content
+  -if @attributes[:author] || @attributes[:title]
+    p.citation
+      -if @attributes[:author]
+        span.author = @attributes[:author]
+      -if @attributes[:title]
+        span.position = @attributes[:title]
