@@ -1,7 +1,9 @@
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
-require 'coveralls'
-Coveralls.wear!
+if ENV["CI"]
+  require 'coveralls'
+  Coveralls.wear!
+end
 
 require 'rspec'
 require 'rails'
