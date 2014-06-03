@@ -8,7 +8,7 @@ describe "template parsers" do
   context "erb" do
 
     it "can render a template" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
+      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
     end
 
   end
@@ -23,7 +23,7 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
+      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
     end
 
   end
@@ -38,7 +38,7 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
+      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
     end
 
   end

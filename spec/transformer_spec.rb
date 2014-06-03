@@ -34,7 +34,7 @@ describe Shortcode do
     it "converts into html" do
       obj = parser.parse(simple_quote)
       html = transformer.apply obj, additional_attributes: nil
-      html.gsub("\n", '').should == simple_quote_output
+      expect(html.gsub("\n", '')).to eq(simple_quote_output)
     end
 
   end
@@ -43,7 +43,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(full_quote), additional_attributes: nil)
-      html.gsub("\n", '').should == full_quote_output
+      expect(html.gsub("\n", '')).to eq(full_quote_output)
     end
 
   end
@@ -52,7 +52,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(quote_with_extras), additional_attributes: nil)
-      html.gsub("\n", '').should == quote_with_extras_output
+      expect(html.gsub("\n", '')).to eq(quote_with_extras_output)
     end
 
   end
@@ -61,7 +61,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(simple_list), additional_attributes: nil)
-      html.gsub("\n", '').should == simple_list_output
+      expect(html.gsub("\n", '')).to eq(simple_list_output)
     end
 
   end
@@ -70,7 +70,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_event), additional_attributes: nil)
-      html.gsub("\n", '').should == timeline_event_output
+      expect(html.gsub("\n", '')).to eq(timeline_event_output)
     end
 
   end
@@ -79,7 +79,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_info), additional_attributes: nil)
-      html.gsub("\n", '').should == timeline_info_output
+      expect(html.gsub("\n", '')).to eq(timeline_info_output)
     end
 
   end
@@ -88,7 +88,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_person), additional_attributes: nil)
-      html.gsub("\n", '').should == timeline_person_output
+      expect(html.gsub("\n", '')).to eq(timeline_person_output)
     end
 
   end
@@ -97,7 +97,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(complex_snippet), additional_attributes: nil)
-      html.gsub("\n", '').should == complex_snippet_output
+      expect(html.gsub("\n", '')).to eq(complex_snippet_output)
     end
   end
 
@@ -105,7 +105,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(simple_quote), additional_attributes: nil)
-      html.gsub("\n",'').should == simple_quote_output
+      expect(html.gsub("\n",'')).to eq(simple_quote_output)
     end
   end
 end

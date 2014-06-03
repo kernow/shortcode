@@ -10,7 +10,7 @@ describe Shortcode do
   context "simple_quote" do
 
     it "converts into html" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
+      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
     end
 
   end
@@ -18,7 +18,7 @@ describe Shortcode do
   context "erb templates" do
 
     it "converts into html" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
+      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
     end
   end
 

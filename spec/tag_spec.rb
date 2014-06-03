@@ -41,7 +41,7 @@ describe Shortcode::Tag do
     end
 
     it "renders a template from a string" do
-      tag.render.should == '<p>batman</p>'
+      expect(tag.render).to eq('<p>batman</p>')
     end
 
   end

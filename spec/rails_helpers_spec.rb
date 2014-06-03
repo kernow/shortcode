@@ -11,7 +11,7 @@ describe "rails helpers" do
   describe "erb" do
 
     it "are accessible within erb templates" do
-      Shortcode.process(template).gsub("\n",'').should == erb_output
+      expect(Shortcode.process(template).gsub("\n",'')).to eq(erb_output)
     end
 
   end
@@ -26,7 +26,7 @@ describe "rails helpers" do
     end
 
     it "are accessible within haml templates" do
-      Shortcode.process(template).gsub("\n",'').should == haml_output
+      expect(Shortcode.process(template).gsub("\n",'')).to eq(haml_output)
     end
 
   end
@@ -41,7 +41,7 @@ describe "rails helpers" do
     end
 
     it "are accessible within slim templates" do
-      Shortcode.process(template).gsub("\n",'').should == slim_output
+      expect(Shortcode.process(template).gsub("\n",'')).to eq(slim_output)
     end
 
   end

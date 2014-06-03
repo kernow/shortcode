@@ -21,7 +21,7 @@ describe Shortcode::Parser do
 
   it "parses quote shortcodes" do
     quotes.each do |string|
-      parser.should parse(string)
+      expect(parser).to parse(string)
     end
   end
 
@@ -32,7 +32,7 @@ describe Shortcode::Parser do
 
     quotes.each do |string|
       # Change double quotes to single quotes in the fixture
-      parser.should parse(string.gsub '"', "'")
+      expect(parser).to parse(string.gsub '"', "'")
     end
 
     # Reset configuration to default
@@ -43,18 +43,18 @@ describe Shortcode::Parser do
 
   it "parses list shortcodes" do
     collapsible_lists.each do |string|
-      parser.should parse(string)
+      expect(parser).to parse(string)
     end
   end
 
   it "parses timeline shortcodes" do
     timelines.each do |string|
-      parser.should parse(string)
+      expect(parser).to parse(string)
     end
   end
 
   it "parses complex nested shortcodes" do
-    parser.should parse(complex_snippet)
+    expect(parser).to parse(complex_snippet)
   end
 
   describe "parsed strings" do
@@ -64,7 +64,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(simple_quote) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{ open: "quote", options: [], inner: [{ text: "hello" }], close: "quote" }]
+        expect(parsed_object[:body]).to eq([{ open: "quote", options: [], inner: [{ text: "hello" }], close: "quote" }])
       end
 
     end
@@ -74,7 +74,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(full_quote) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{
+        expect(parsed_object[:body]).to eq([{
           open: "quote",
           options: [
             { key: "author", value: "Jamie Dyer" },
@@ -82,7 +82,7 @@ describe Shortcode::Parser do
           ],
           inner: [{ text: "A quote" }],
           close: "quote"
-        }]
+        }])
       end
 
     end
@@ -92,7 +92,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(quote_with_extras) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [
+        expect(parsed_object[:body]).to eq([
           { text: "Blah blah " },
           {
             open: "quote",
@@ -103,7 +103,7 @@ describe Shortcode::Parser do
             close: "quote"
           },
           { text: "<br> blah blah\n" }
-        ]
+        ])
       end
 
     end
@@ -113,7 +113,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(simple_list) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{
+        expect(parsed_object[:body]).to eq([{
           open: "collapsible_list",
           options: [],
           inner: [{
@@ -135,7 +135,7 @@ describe Shortcode::Parser do
             close: "item"
           }],
           close: "collapsible_list"
-        }]
+        }])
       end
 
     end
@@ -145,14 +145,14 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(timeline_event) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{
+        expect(parsed_object[:body]).to eq([{
           open_close: "timeline_event",
           options: [
             { key: "date", value: "March 2013" },
             { key: "title", value: "a title" },
             { key: "link", value: "http://blah.com" }
           ]
-        }]
+        }])
       end
 
     end
@@ -162,13 +162,13 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(timeline_info) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{
+        expect(parsed_object[:body]).to eq([{
           open_close: "timeline_info",
           options: [
             { key: "date", value: "Feb 2013" },
             { key: "title", value: "Something amazing" }
           ]
-        }]
+        }])
       end
 
     end
@@ -178,7 +178,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(timeline_person) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{
+        expect(parsed_object[:body]).to eq([{
           open: "timeline_person",
           options: [
             { key: "date", value: "Jan 2012" },
@@ -190,7 +190,7 @@ describe Shortcode::Parser do
           ],
           inner: [{ text: "A bit of body copy\nwith a newline\n" }],
           close: "timeline_person"
-        }]
+        }])
       end
 
     end
@@ -200,7 +200,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(complex_snippet) }
 
       it "created the expected object" do
-        parsed_object[:body].should == [{
+        expect(parsed_object[:body]).to eq([{
           text: "<h3>A page title</h3>\n<p>Some text</p>\n"},
           {
             open: "collapsible_list",
@@ -244,7 +244,7 @@ describe Shortcode::Parser do
             close: "collapsible_list"
           },
           { text: "<p>Some more text</p>\n" }
-        ]
+        ])
       end
     end
   end
