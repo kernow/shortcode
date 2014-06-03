@@ -34,7 +34,6 @@ describe Shortcode::Tag do
 
     before(:each) do
       Shortcode.setup do |config|
-        config.template_parser = :erb
         config.templates = {
           from_string: '<p><%= @attributes[:string] %></p>'
         }
@@ -53,7 +52,6 @@ describe Shortcode::Tag do
 
     before(:each) do
       Shortcode.setup do |config|
-        config.template_parser = :erb
         config.templates = {
           from_string: '<p><%= @attributes[:string] %></p>'
         }

@@ -1,0 +1,17 @@
+<div class='timeline'>
+<table>
+<tbody>
+<tr>
+<th scope='row'>
+<%= @attributes[:date] %>
+</th>
+<td class='event'>
+<span class='description'><%= @attributes[:title] %></span>
+<% if @attributes[:link] %>
+<a class='read_more' href='<%= @attributes[:link] %>'>Read More</a>
+<% end %>
+</td>
+</tr>
+</tbody>
+</table>
+</div>

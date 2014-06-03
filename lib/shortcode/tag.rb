@@ -29,13 +29,12 @@ class Shortcode::Tag
 
     def render_template
       case Shortcode.configuration.template_parser
-      when :slim
-        Slim::Template.new { markup }.render(self)
-      when :haml
-        warn Shortcode.configuration.haml_deprecation_warning unless Shortcode.configuration.parser_set
-        Haml::Engine.new(markup, ugly: true).render(binding)
       when :erb
         ERB.new(markup).result(binding)
+      when :haml
+        Haml::Engine.new(markup, ugly: true).render(binding)
+      when :slim
+        Slim::Template.new { markup }.render(self)
       else
         raise Shortcode::TemplateParserNotSupported, Shortcode.configuration.template_parser
       end

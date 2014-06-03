@@ -36,11 +36,11 @@ describe Shortcode::Presenter do
     end
 
     it "uses the custom attributes" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == presenter_output.gsub("\n",'')
+      Shortcode.process(simple_quote).gsub("\n",'').should == presenter_output
     end
 
     it "passes through additional attributes" do
-      Shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'').should == attributes_output.gsub("\n",'')
+      Shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'').should == attributes_output
     end
 
   end

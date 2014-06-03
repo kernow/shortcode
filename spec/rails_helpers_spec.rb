@@ -10,23 +10,23 @@ describe "rails helpers" do
 
   describe "erb" do
 
-    before(:each) do
-      Shortcode.setup do |config|
-        config.template_parser = :erb
-        config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
-      end
-    end
-
     it "are accessible within erb templates" do
-      Shortcode.process(template).gsub("\n",'').should == erb_output.gsub("\n",'')
+      Shortcode.process(template).gsub("\n",'').should == erb_output
     end
 
   end
 
   describe "haml" do
 
+    before(:each) do
+      Shortcode.setup do |config|
+        config.template_parser = :haml
+        config.template_path = File.join File.dirname(__FILE__), "support/templates/haml"
+      end
+    end
+
     it "are accessible within haml templates" do
-      Shortcode.process(template).gsub("\n",'').should == haml_output.gsub("\n",'')
+      Shortcode.process(template).gsub("\n",'').should == haml_output
     end
 
   end
@@ -41,7 +41,7 @@ describe "rails helpers" do
     end
 
     it "are accessible within slim templates" do
-      Shortcode.process(template).gsub("\n",'').should == slim_output.gsub("\n",'')
+      Shortcode.process(template).gsub("\n",'').should == slim_output
     end
 
   end

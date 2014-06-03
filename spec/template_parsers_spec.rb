@@ -7,46 +7,23 @@ describe "template parsers" do
 
   context "erb" do
 
-    # TODO remove this before block as erb will eb the default at version 0.4
-    before(:each) do
-      Shortcode.setup do |config|
-        config.template_parser = :erb
-        config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
-      end
-    end
-
     it "can render a template" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output.gsub("\n",'')
+      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
     end
 
   end
 
   context "haml" do
 
+    before(:each) do
+      Shortcode.setup do |config|
+        config.template_parser = :haml
+        config.template_path = File.join File.dirname(__FILE__), "support/templates/haml"
+      end
+    end
+
     it "can render a template" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output.gsub("\n",'')
-    end
-
-    context "when specified in the config" do
-
-      before(:each) do
-        Shortcode.setup do |config|
-          config.template_parser = :haml
-        end
-      end
-
-      it "does not show a deprecation warning" do
-        expect { Shortcode.process(simple_quote) }.not_to write(Shortcode.configuration.haml_deprecation_warning).to(:error)
-      end
-
-    end
-
-    context "when not specifed in the config" do
-
-      it "shows a deprecation warning" do
-        expect { Shortcode.process(simple_quote) }.to write(Shortcode.configuration.haml_deprecation_warning).to(:error)
-      end
-
+      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
     end
 
   end
@@ -61,7 +38,7 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output.gsub("\n",'')
+      Shortcode.process(simple_quote).gsub("\n",'').should == simple_quote_output
     end
 
   end

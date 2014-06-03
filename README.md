@@ -46,10 +46,10 @@ Shortcode.process("[quote]Hello World[/quote]")
 Shortcode.setup do |config|
 
   # the template parser to use
-  config.template_parser = :haml # :erb, :haml, :slim supported, :haml is default
+  config.template_parser = :erb # :erb, :haml, :slim supported, :erb is default
 
    # location of the template files, default is "app/views/shortcode_templates"
-  config.template_path = "support/templates/haml"
+  config.template_path = "support/templates/erb"
 
    # a hash of templates passed as strings, if this is set it overrides the
    # above template_path option. The default is nil
@@ -68,19 +68,26 @@ end
 
 ### Templates
 
-Each shortcode tag needs a template in order to translate the shortcode into html (or other output). Templates can be written in HAML or erb and work in
+Each shortcode tag needs a template in order to translate the shortcode into html (or other output). Templates can be written in erb, haml or slim and work in
 a similar way to views in Rails. The main content of a tag is passed via the instance variable `@content`. Any attributes defined on a tag are passed in via an `@attributes` hash, shortcodes can have any number of attributes. For instance a quote shortcode might look like this:
 
     [quote author="Homer Simpson"]Doh![/quote]
 
-And the haml template to render the shortcode
+And the erb template to render the shortcode
 
-```haml
-%blockquote
-  %p.quotation= @content
-  -if @attributes[:author]
-    %p.citation
-      %span.author= @attributes[:author]
+```erb
+<blockquote>
+  <p class='quotation'>
+    <%= @content %>
+  </p>
+  <% if @attributes[:author] %>
+    <p class='citation'>
+      <span class='author'>
+        <%= @attributes[:author] %>
+      </span>
+    </p>
+  <% end %>
+</blockquote>
 ```
 
 If using the gem within a Rails project you can use the Rails helper methods within templates.
@@ -101,7 +108,7 @@ block as strings.
 
 #### Templates loaded from the file system
 
-Simply create files with the extension or .haml or .erb with a filename the same as the shortcode tag, e.g. gallery.haml would render a [gallery] shortcode tag. The default
+Simply create files with the extension or .erb, .haml, or .slim with a filename the same as the shortcode tag, e.g. gallery.html.erb would render a [gallery] shortcode tag. The default
 location for template files is `app/views/shortcode_templates`, if you want to load tempaltes from a different location use the `template_path` config option.
 
 #### Templates set as configuration options

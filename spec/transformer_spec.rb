@@ -34,7 +34,7 @@ describe Shortcode do
     it "converts into html" do
       obj = parser.parse(simple_quote)
       html = transformer.apply obj, additional_attributes: nil
-      html.should == simple_quote_output
+      html.gsub("\n", '').should == simple_quote_output
     end
 
   end
@@ -43,7 +43,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(full_quote), additional_attributes: nil)
-      html.should == full_quote_output
+      html.gsub("\n", '').should == full_quote_output
     end
 
   end
@@ -52,7 +52,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(quote_with_extras), additional_attributes: nil)
-      html.should == quote_with_extras_output
+      html.gsub("\n", '').should == quote_with_extras_output
     end
 
   end
@@ -61,7 +61,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(simple_list), additional_attributes: nil)
-      html.should == simple_list_output
+      html.gsub("\n", '').should == simple_list_output
     end
 
   end
@@ -70,7 +70,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_event), additional_attributes: nil)
-      html.should == timeline_event_output
+      html.gsub("\n", '').should == timeline_event_output
     end
 
   end
@@ -79,7 +79,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_info), additional_attributes: nil)
-      html.should == timeline_info_output
+      html.gsub("\n", '').should == timeline_info_output
     end
 
   end
@@ -88,7 +88,7 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_person), additional_attributes: nil)
-      html.should == timeline_person_output
+      html.gsub("\n", '').should == timeline_person_output
     end
 
   end
@@ -97,22 +97,15 @@ describe Shortcode do
 
     it "converts into html" do
       html = transformer.apply(parser.parse(complex_snippet), additional_attributes: nil)
-      html.should == complex_snippet_output
+      html.gsub("\n", '').should == complex_snippet_output
     end
   end
 
   context "erb templates" do
 
-    before(:each) do
-      Shortcode.setup do |config|
-        config.template_parser = :erb
-        config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
-      end
-    end
-
     it "converts into html" do
       html = transformer.apply(parser.parse(simple_quote), additional_attributes: nil)
-      html.gsub("\n",'').should == simple_quote_output.gsub("\n",'')
+      html.gsub("\n",'').should == simple_quote_output
     end
   end
 end

@@ -1,0 +1,23 @@
+<div class='timeline'>
+<table>
+<tbody>
+<tr>
+<th scope='row'>
+<%= @attributes[:date] %>
+</th>
+<td class='team_news'>
+<img src='<%= @attributes[:image] %>'>
+<h4><%= @attributes[:title] %></h4>
+<span class='name'><%= @attributes[:name] %></span>
+<span class='position'><%= @attributes[:position] %></span>
+<% if @attributes[:link] %>
+<a class='read_more' href='<%= @attributes[:link] %>'>View Profile</a>
+<% end %>
+<div class='description'>
+<p><%= @content %></p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
