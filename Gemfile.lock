@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shortcode (0.4.0)
+    shortcode (0.4.1)
       parslet (= 1.6.0)
 
 GEM
