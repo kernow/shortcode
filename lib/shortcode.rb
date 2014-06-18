@@ -24,7 +24,7 @@ module Shortcode
   end
 
   def self.register_presenter(presenter)
-    presenters[presenter.for.to_sym] = presenter
+    [*presenter.for].each { |k| presenters[k.to_sym] = presenter }
   end
 
   private

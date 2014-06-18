@@ -127,7 +127,7 @@ an exception will be raised.
 
 ### Presenters
 
-Sometimes the data passed to the template from the shortcode it not enough. Lets say you want to render a gallery of images using id numbers of images stored in a database, e.g. `[gallery ids="1,2,3,4"]`. This is where presenters can help, they allow you to modify the `@content` and `@attributes` variables before they are sent to the template for rendering. Presenters are simple classes that define four methods. The class method `for` should return the name of the shortcode (as a symbol) it should be applied to. The classes `initialize` method received the `attributes`, `content` and `additional_attributes` variables. Finally the class should define `content` and `attributes` methods.
+Sometimes the data passed to the template from the shortcode it not enough. Lets say you want to render a gallery of images using id numbers of images stored in a database, e.g. `[gallery ids="1,2,3,4"]`. This is where presenters can help, they allow you to modify the `@content` and `@attributes` variables before they are sent to the template for rendering. Presenters are simple classes that define four methods. The class method `for` should return the name of the shortcode (as a symbol) it should be applied to, the `for` method can also return an array of symbols if the presenter is to be used for multiple shortcodes. The classes `initialize` method received the `attributes`, `content` and `additional_attributes` variables. Finally the class should define `content` and `attributes` methods.
 
 In a rails app you could return image records to the template using something like this:
 
@@ -135,13 +135,13 @@ In a rails app you could return image records to the template using something li
 class GalleryPresenter
 
   def self.for
+    # An array can also be returned if the presenter should be applied
+    # to multiple shortcodes, e.g. [:gallery, :enhanced_gallery]
     :gallery
   end
 
   def initialize(attributes, content, additional_attributes)
-    @attributes = attributes
     @content = content
-    @additional_attributes = additional_attributes
   end
 
   def content
@@ -172,7 +172,6 @@ class GalleryPresenter
   end
 
   def initialize(attributes, content, additional_attributes)
-    @attributes = attributes
     @content = content
     @additional_attributes = additional_attributes
   end
@@ -192,7 +191,8 @@ class GalleryPresenter
     end
 end
 
-# The hash containing the images attribute is passed through to the presenter as the additional_attributes argument
+# The hash containing the images attribute is passed through to the presenter
+# as the additional_attributes argument
 Shortcode.process('[gallery]', { images: @post.images })
 
 ```
