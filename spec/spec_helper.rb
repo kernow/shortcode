@@ -18,7 +18,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:each) do
-    Shortcode.presenters = {}
+    Shortcode::Presenter.presenters = {}
     Shortcode.setup do |config|
       config.template_parser = :erb
       config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"

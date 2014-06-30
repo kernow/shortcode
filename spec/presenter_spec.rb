@@ -2,45 +2,12 @@ require 'spec_helper'
 require 'parslet/rig/rspec'
 require 'pp'
 
-class MyPresenter
-
-  def self.for
-    :quote
-  end
-
-  def initialize(attributes, content, additional_attributes)
-    @content = content
-    @additional_attributes = additional_attributes
-  end
-
-  def content
-    @content
-  end
-
-  def attributes
-    @additional_attributes || { title: "my custom title" }
-  end
-end
-
-class MultiplePresenter
-
-  def self.for
-    [:quote, :item]
-  end
-
-  def initialize(attributes, content, additional_attributes)
-    @content = content
-    @additional_attributes = additional_attributes
-  end
-
-  def content
-    @content
-  end
-
-  def attributes
-    @additional_attributes || { title: "my custom title" }
-  end
-end
+require 'support/presenters/my_presenter'
+require 'support/presenters/multiple_presenter'
+require 'support/presenters/missing_for_presenter'
+require 'support/presenters/missing_initialize_presenter'
+require 'support/presenters/missing_content_presenter'
+require 'support/presenters/missing_attributes_presenter'
 
 describe Shortcode::Presenter do
 
@@ -86,6 +53,42 @@ describe Shortcode::Presenter do
     it "passes through additional attributes" do
       expect(Shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'')).to eq(quote_attributes_output)
       expect(Shortcode.process(item,         { title: 'Additional attribute title' }).gsub("\n",'')).to eq(item_attributes_output)
+    end
+
+  end
+
+  context "presenter validation" do
+
+    describe "missing #for class method" do
+
+      it "raises an exception" do
+        expect { Shortcode.register_presenter MissingForPresenter }.to raise_error(ArgumentError, "The presenter must define the class method #for")
+      end
+
+    end
+
+    describe "missing #initialize method" do
+
+      it "raises an exception" do
+        expect { Shortcode.register_presenter MissingInitializePresenter }.to raise_error(ArgumentError, "The presenter must define an initialize method")
+      end
+
+    end
+
+    describe "missing #content method" do
+
+      it "raises an exception" do
+        expect { Shortcode.register_presenter MissingContentPresenter }.to raise_error(ArgumentError, "The presenter must define the method #content")
+      end
+
+    end
+
+    describe "missing #attributes method" do
+
+      it "raises an exception" do
+        expect { Shortcode.register_presenter MissingAttributesPresenter }.to raise_error(ArgumentError, "The presenter must define the method #attributes")
+      end
+
     end
 
   end
