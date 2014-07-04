@@ -1,6 +1,6 @@
 # Shortcode
 
-A ruby gem for parsing Wordpress style shortcodes. The gem uses a [PEG](http://en.wikipedia.org/wiki/Parsing_expression_grammar) (Parsing Expression Grammar) parser rather than using regular expressions so its easier to understand, test and extend.
+Shortcode is a ruby gem for parsing Wordpress style shortcodes, I created it while building a CMS for a client through [my ruby consultancy, Kernow Soul](http://kernowsoul.com). The gem uses a [PEG](http://en.wikipedia.org/wiki/Parsing_expression_grammar) (Parsing Expression Grammar) parser rather than using regular expressions so its easier to understand, test and extend.
 
 [![Gem Version](https://badge.fury.io/rb/shortcode.svg)](http://badge.fury.io/rb/shortcode)
 [![Build Status](https://travis-ci.org/kernow/shortcode.png?branch=master)](https://travis-ci.org/kernow/shortcode)
@@ -38,32 +38,6 @@ Shortcode is very simple to use, simply call the `process` method and pass it a 
 
 ```ruby
 Shortcode.process("[quote]Hello World[/quote]")
-```
-
-### Configuration
-
-```ruby
-Shortcode.setup do |config|
-
-  # the template parser to use
-  config.template_parser = :erb # :erb, :haml, :slim supported, :erb is default
-
-   # location of the template files, default is "app/views/shortcode_templates"
-  config.template_path = "support/templates/erb"
-
-   # a hash of templates passed as strings, if this is set it overrides the
-   # above template_path option. The default is nil
-  config.templates = { gallery: 'template code' }
-
-  # a list of block tags to support e.g. [quote]Hello World[/quote]
-  config.block_tags = [:quote]
-
-  # a list of self closing tags to support e.g. [youtube id="12345"]
-  config.self_closing_tags = [:youtube]
-
-  # the type of quotes to use for attribute values, default is double quotes (")
-  config.quotes = '"'
-end
 ```
 
 ### Templates
@@ -204,6 +178,33 @@ To register a presenter simply call `Shortcode.register_presenter` passing the p
 ```ruby
 Shortcode.register_presenter(CustomPresenter)
 ```
+
+### Configuration
+
+```ruby
+Shortcode.setup do |config|
+
+  # the template parser to use
+  config.template_parser = :erb # :erb, :haml, :slim supported, :erb is default
+
+   # location of the template files, default is "app/views/shortcode_templates"
+  config.template_path = "support/templates/erb"
+
+   # a hash of templates passed as strings, if this is set it overrides the
+   # above template_path option. The default is nil
+  config.templates = { gallery: 'template code' }
+
+  # a list of block tags to support e.g. [quote]Hello World[/quote]
+  config.block_tags = [:quote]
+
+  # a list of self closing tags to support e.g. [youtube id="12345"]
+  config.self_closing_tags = [:youtube]
+
+  # the type of quotes to use for attribute values, default is double quotes (")
+  config.quotes = '"'
+end
+```
+
 
 ## Contributing
 
