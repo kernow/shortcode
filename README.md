@@ -107,6 +107,7 @@ If you wish to use custom helper modules in templates you can do so by specifyin
 Shortcode.setup do |config|
   config.helpers = [CustomHelper, AnotherCustomHelper]
 end
+```
 
 ### Presenters
 
