@@ -187,11 +187,11 @@ Shortcode.setup do |config|
   # the template parser to use
   config.template_parser = :erb # :erb, :haml, :slim supported, :erb is default
 
-   # location of the template files, default is "app/views/shortcode_templates"
+  # location of the template files, default is "app/views/shortcode_templates"
   config.template_path = "support/templates/erb"
 
-   # a hash of templates passed as strings, if this is set it overrides the
-   # above template_path option. The default is nil
+  # a hash of templates passed as strings, if this is set it overrides the
+  # above template_path option. The default is nil
   config.templates = { gallery: 'template code' }
 
   # a list of block tags to support e.g. [quote]Hello World[/quote]
