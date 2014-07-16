@@ -8,6 +8,9 @@ class Shortcode::Configuration
   # Allows templates to be set from strings rather than read from the filesystem
   attr_accessor :templates
 
+  # Assigns helper modules to be included in templates
+  attr_accessor :helpers
+
   # Set the supported block_tags
   attr_accessor :block_tags
 
@@ -21,6 +24,7 @@ class Shortcode::Configuration
     @template_parser    = :erb
     @template_path      = "app/views/shortcode_templates"
     @templates          = nil
+    @helpers            = []
     @block_tags         = []
     @self_closing_tags  = []
     @quotes             = '"'

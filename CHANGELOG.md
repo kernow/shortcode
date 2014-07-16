@@ -1,3 +1,10 @@
+## 0.4.3 (July 16, 2014)
+
+Features:
+
+  - Adds support for custom helpers in templates
+
+
 ## 0.4.2 (July 1, 2014)
 
 Features:

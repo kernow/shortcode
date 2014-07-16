@@ -99,6 +99,15 @@ end
 If the `templates` config option is set all templates will be loaded from this hash, if a shortcode is encountered without a matching key in the `templates` config option
 an exception will be raised.
 
+### Custom Helpers
+
+If you wish to use custom helper modules in templates you can do so by specifying the helpers in a setup block which should be an array. Methods in the helper modules will then become available within all tempaltes.
+
+```ruby
+Shortcode.setup do |config|
+  config.helpers = [CustomHelper, AnotherCustomHelper]
+end
+
 ### Presenters
 
 Sometimes the data passed to the template from the shortcode it not enough. Lets say you want to render a gallery of images using id numbers of images stored in a database, e.g. `[gallery ids="1,2,3,4"]`. This is where presenters can help, they allow you to modify the `@content` and `@attributes` variables before they are sent to the template for rendering. Presenters are simple classes that define four methods. The class method `for` should return the name of the shortcode (as a symbol) it should be applied to, the `for` method can also return an array of symbols if the presenter is to be used for multiple shortcodes. The classes `initialize` method received the `attributes`, `content` and `additional_attributes` variables. Finally the class should define `content` and `attributes` methods.
@@ -193,6 +202,9 @@ Shortcode.setup do |config|
   # a hash of templates passed as strings, if this is set it overrides the
   # above template_path option. The default is nil
   config.templates = { gallery: 'template code' }
+
+  # an array of helper modules to make available within tempaltes
+  config.helpers = [CustomerHelper]
 
   # a list of block tags to support e.g. [quote]Hello World[/quote]
   config.block_tags = [:quote]

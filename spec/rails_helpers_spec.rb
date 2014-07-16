@@ -1,5 +1,11 @@
 require 'spec_helper'
 
+module ShortcodeSpecViewHelper
+  def wrap_in_p(content)
+    content_tag :p, content
+  end
+end
+
 describe "rails helpers" do
 
   let(:template)    { load_fixture :rails_helper }
@@ -42,6 +48,23 @@ describe "rails helpers" do
 
     it "are accessible within slim templates" do
       expect(Shortcode.process(template).gsub("\n",'')).to eq(slim_output)
+    end
+
+  end
+
+  describe "using a custom helper module" do
+
+    let(:template) { load_fixture :custom_helper }
+    let(:output)   { load_fixture :custom_helper_output,  :html }
+
+    before(:each) do
+      Shortcode.setup do |config|
+        config.helpers = [ShortcodeSpecViewHelper]
+      end
+    end
+
+    it "is accessible within templates" do
+      expect(Shortcode.process(template).gsub("\n",'')).to eq(output)
     end
 
   end

@@ -1,6 +1,7 @@
 class Shortcode::Tag
 
   def initialize(name, attributes=[], content='', additional_attributes=nil)
+    include_helper_modules
     @name       = name.downcase
     presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content, additional_attributes
     @attributes = presenter.attributes
@@ -26,6 +27,15 @@ class Shortcode::Tag
   end
 
   private
+
+    def include_helper_modules
+      return unless Shortcode.configuration.helpers.any?
+      class << self
+        Shortcode.configuration.helpers.each do |helper|
+          include helper
+        end
+      end
+    end
 
     def render_template
       case Shortcode.configuration.template_parser
