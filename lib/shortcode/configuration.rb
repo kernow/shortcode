@@ -20,6 +20,9 @@ class Shortcode::Configuration
   # Set the quotation sign used for attribute values. Defaults to double quote (")
   attr_accessor :quotes
 
+  # Allows quotes to be omitted. Defaults to false (quotes must be present around the value).
+  attr_accessor :optional_quotes
+
   def initialize
     @template_parser    = :erb
     @template_path      = "app/views/shortcode_templates"
@@ -28,5 +31,6 @@ class Shortcode::Configuration
     @block_tags         = []
     @self_closing_tags  = []
     @quotes             = '"'
+    @optional_quotes    = false
   end
 end

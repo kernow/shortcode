@@ -12,7 +12,10 @@ class Shortcode::Parser < Parslet::Parser
   rule(:whitespace?)  { whitespace.maybe }
 
   rule(:key)    { match('[a-zA-Z0-9\-_]').repeat(1) }
-  rule(:value)  { quotes >> (quotes.absent? >> any).repeat.as(:value) >> quotes }
+
+  rule(:value_with_quotes)  { quotes >> (quotes.absent? >> any).repeat.as(:value) >> quotes }
+  rule(:value_without_quotes) { quotes.absent? >> ( (str(']') | whitespace).absent? >> any ).repeat.as(:value) }
+  rule(:value)    { Shortcode.configuration.optional_quotes ? (value_without_quotes | value_with_quotes) : value_with_quotes }
 
   rule(:option)   { key.as(:key) >> str('=') >> value }
   rule(:options)  { (str(' ') >> option).repeat(1) }
