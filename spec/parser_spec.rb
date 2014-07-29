@@ -26,33 +26,35 @@ describe Shortcode::Parser do
     end
   end
 
-  it "parses quotes using custom quotations" do
-    Shortcode.setup do |config|
-      config.quotes = "'"
+  context "quotes configuration" do
+
+    before do
+      Shortcode.setup do |config|
+        config.quotes = "'"
+      end
     end
 
-    quotes.each do |string|
-      # Change double quotes to single quotes in the fixture
-      expect(parser).to parse(string.gsub '"', "'")
+    it "parses quotes using custom quotations" do
+      quotes.each do |string|
+        # Change double quotes to single quotes in the fixture
+        expect(parser).to parse(string.gsub '"', "'")
+      end
     end
 
-    # Reset configuration to default
-    Shortcode.setup do |config|
-      config.quotes = '"'
-    end
   end
 
-  it "parses shortcodes with optional quotes" do
-    Shortcode.setup do |config|
-      config.optional_quotes = true
+  context "optional_quotes configuration" do
+
+    before do
+      Shortcode.setup do |config|
+        config.optional_quotes = true
+      end
     end
 
-    expect(parser).to parse(without_quotes)
-
-    # Reset configuration to default
-    Shortcode.setup do |config|
-      config.optional_quotes = false
+    it "parses shortcodes with optional quotes" do
+      expect(parser).to parse(without_quotes)
     end
+
   end
 
   it "parses list shortcodes" do
