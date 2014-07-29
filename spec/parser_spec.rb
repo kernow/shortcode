@@ -26,11 +26,11 @@ describe Shortcode::Parser do
     end
   end
 
-  context "quotes configuration" do
+  context "attribute_quote_type configuration" do
 
     before do
       Shortcode.setup do |config|
-        config.quotes = "'"
+        config.attribute_quote_type = "'"
       end
     end
 
@@ -43,11 +43,11 @@ describe Shortcode::Parser do
 
   end
 
-  context "optional_quotes configuration" do
+  context "use_attribute_quotes configuration" do
 
     before do
       Shortcode.setup do |config|
-        config.optional_quotes = true
+        config.use_attribute_quotes = false
       end
     end
 
