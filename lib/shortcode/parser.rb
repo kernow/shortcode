@@ -3,7 +3,7 @@ class Shortcode::Parser < Parslet::Parser
   rule(:block_tag)        { match_any_of Shortcode.configuration.block_tags }
   rule(:self_closing_tag) { match_any_of Shortcode.configuration.self_closing_tags }
 
-  rule(:quotes) { str(Shortcode.configuration.quotes) }
+  rule(:quotes) { str(Shortcode.configuration.attribute_quote_type) }
 
   rule(:space)        { str(' ').repeat(1) }
   rule(:space?)       { space.maybe }
@@ -11,9 +11,9 @@ class Shortcode::Parser < Parslet::Parser
   rule(:whitespace)   { (space | newline).repeat(1) }
   rule(:whitespace?)  { whitespace.maybe }
 
-  rule(:key)    { match('[a-zA-Z0-9\-_]').repeat(1) }
+  rule(:key) { match('[a-zA-Z0-9\-_]').repeat(1) }
 
-  rule(:value_with_quotes)  { quotes >> (quotes.absent? >> any).repeat.as(:value) >> quotes }
+  rule(:value_with_quotes) { quotes >> (quotes.absent? >> any).repeat.as(:value) >> quotes }
   rule(:value_without_quotes) { quotes.absent? >> ( (str(']') | whitespace).absent? >> any ).repeat.as(:value) }
   rule(:value) { Shortcode.configuration.use_attribute_quotes ? value_with_quotes : (value_without_quotes | value_with_quotes) }
 
