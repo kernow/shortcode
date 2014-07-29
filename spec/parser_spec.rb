@@ -8,6 +8,7 @@ describe Shortcode::Parser do
 
   let(:simple_quote)      { load_fixture :simple_quote }
   let(:full_quote)        { load_fixture :full_quote }
+  let(:without_quotes)    { load_fixture :without_quotes }
   let(:quote_with_extras) { load_fixture :quote_with_extras }
   let(:simple_list)       { load_fixture :simple_list }
   let(:timeline_event)    { load_fixture :timeline_event }
@@ -38,6 +39,19 @@ describe Shortcode::Parser do
     # Reset configuration to default
     Shortcode.setup do |config|
       config.quotes = '"'
+    end
+  end
+
+  it "parses shortcodes with optional quotes" do
+    Shortcode.setup do |config|
+      config.optional_quotes = true
+    end
+
+    expect(parser).to parse(without_quotes)
+
+    # Reset configuration to default
+    Shortcode.setup do |config|
+      config.optional_quotes = false
     end
   end
 
