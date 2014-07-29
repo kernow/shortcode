@@ -1,3 +1,14 @@
+## 1.0.0 (July 29, 2014)
+
+Features:
+
+  - Adds support for attributes without quotations around them
+
+Breaking Changes:
+
+  - Renamed configuration options so they are more clear
+
+
 ## 0.4.3 (July 16, 2014)
 
 Features:
