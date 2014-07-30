@@ -216,7 +216,8 @@ Shortcode.setup do |config|
   # the type of quotes to use for attribute values, default is double quotes (")
   config.attribute_quote_type = '"'
 
-  # Allows quotes around attributes to be omitted. Defaults to true (quotes must be present around the value).
+  # Allows quotes around attributes to be omitted
+  # Defaults to true, quotes must be present around attribute values
   config.use_attribute_quotes = true
 end
 ```
