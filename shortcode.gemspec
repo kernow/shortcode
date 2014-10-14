@@ -26,4 +26,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "coveralls"
   spec.add_development_dependency "slim", "~> 2.0"
   spec.add_development_dependency "haml", "~> 4.0"
+
+  # Need rails for tests
+  spec.add_development_dependency "rails", "~> 4.0"
 end
