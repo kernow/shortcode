@@ -3,7 +3,7 @@ class Shortcode::Parser < Parslet::Parser
   rule(:block_tag)        { match_any_of Shortcode.configuration.block_tags }
   rule(:self_closing_tag) { match_any_of Shortcode.configuration.self_closing_tags }
 
-  rule(:quotes) { str(Shortcode.configuration.attribute_quote_type) }
+  rule(:quotes) { match(Shortcode.configuration.attribute_quote_type) }
 
   rule(:space)        { str(' ').repeat(1) }
   rule(:space?)       { space.maybe }

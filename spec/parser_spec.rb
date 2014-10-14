@@ -30,7 +30,7 @@ describe Shortcode::Parser do
 
     before do
       Shortcode.setup do |config|
-        config.attribute_quote_type = "'"
+        config.attribute_quote_type = /'/
       end
     end
 

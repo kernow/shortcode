@@ -30,7 +30,7 @@ class Shortcode::Configuration
     @helpers              = []
     @block_tags           = []
     @self_closing_tags    = []
-    @attribute_quote_type = '"'
+    @attribute_quote_type = /\"/
     @use_attribute_quotes = true
   end
 end
