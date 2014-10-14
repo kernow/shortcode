@@ -214,7 +214,7 @@ Shortcode.setup do |config|
   config.self_closing_tags = [:youtube]
 
   # the type of quotes to use for attribute values, default is double quotes (")
-  config.attribute_quote_type = '"'
+  config.attribute_quote_type = /[\"']/
 
   # Allows quotes around attributes to be omitted
   # Defaults to true, quotes must be present around attribute values
