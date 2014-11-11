@@ -83,11 +83,11 @@ block as strings.
 #### Templates loaded from the file system
 
 Simply create files with the extension or .erb, .haml, or .slim with a filename the same as the shortcode tag, e.g. gallery.html.erb would render a [gallery] shortcode tag. The default
-location for template files is `app/views/shortcode_templates`, if you want to load tempaltes from a different location use the `template_path` config option.
+location for template files is `app/views/shortcode_templates`, if you want to load templates from a different location use the `template_path` config option.
 
 #### Templates set as configuration options
 
-The alternative way to define tempaltes is to set them using the `templates` config option, this option can take a hash with keys of the same name as the shortcode tags and
+The alternative way to define templates is to set them using the `templates` config option, this option can take a hash with keys of the same name as the shortcode tags and
 values containing a template string. For instance:
 
 ```ruby
@@ -101,7 +101,7 @@ an exception will be raised.
 
 ### Custom Helpers
 
-If you wish to use custom helper modules in templates you can do so by specifying the helpers in a setup block which should be an array. Methods in the helper modules will then become available within all tempaltes.
+If you wish to use custom helper modules in templates you can do so by specifying the helpers in a setup block which should be an array. Methods in the helper modules will then become available within all templates.
 
 ```ruby
 Shortcode.setup do |config|
@@ -204,7 +204,7 @@ Shortcode.setup do |config|
   # above template_path option. The default is nil
   config.templates = { gallery: 'template code' }
 
-  # an array of helper modules to make available within tempaltes
+  # an array of helper modules to make available within templates
   config.helpers = [CustomerHelper]
 
   # a list of block tags to support e.g. [quote]Hello World[/quote]
