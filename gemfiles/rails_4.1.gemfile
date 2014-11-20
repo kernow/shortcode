@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "appraisal", "1.0.0"
-gem "rails", "~> 4.1.7"
+gem "appraisal", "1.0.2"
+gem "rails", "~> 4.1.8"
 
 gemspec :path => "../"
