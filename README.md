@@ -40,6 +40,17 @@ Shortcode is very simple to use, simply call the `process` method and pass it a 
 Shortcode.process("[quote]Hello World[/quote]")
 ```
 
+### Tags
+
+Any tags you wish to use with Shortcode need to be configured in the setup block, there are 2 types of tag, `block_tags` and `self_closing_tags`. Block tags have a matching open and close tag such as `[quote]A quote[/quote]`, self closing tags have no close tag, for example `[gallery]`. To define the tags Shortcode should parse do so in the configuration as follows:
+
+```ruby
+Shortcode.setup do |config|
+  config.block_tags = [:quote, :list]
+  config.self_closing_tags = [:gallery, :widget]
+end
+```
+
 ### Templates
 
 Each shortcode tag needs a template in order to translate the shortcode into html (or other output). Templates can be written in erb, haml or slim and work in
@@ -85,6 +96,8 @@ block as strings.
 Simply create files with the extension or .erb, .haml, or .slim with a filename the same as the shortcode tag, e.g. gallery.html.erb would render a [gallery] shortcode tag. The default
 location for template files is `app/views/shortcode_templates`, if you want to load templates from a different location use the `template_path` config option.
 
+Note: only 1 template parser is supported at a time, if using haml for instance all templates must be haml.
+
 #### Templates set as configuration options
 
 The alternative way to define templates is to set them using the `templates` config option, this option can take a hash with keys of the same name as the shortcode tags and
@@ -98,6 +111,8 @@ end
 
 If the `templates` config option is set all templates will be loaded from this hash, if a shortcode is encountered without a matching key in the `templates` config option
 an exception will be raised.
+
+Note: it's NOT possible to load templates from a config option AND from the file system, you must either load all templates from the file system or define all templates in a confi option.
 
 ### Custom Helpers
 
