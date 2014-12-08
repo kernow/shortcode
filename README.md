@@ -112,7 +112,7 @@ end
 If the `templates` config option is set all templates will be loaded from this hash, if a shortcode is encountered without a matching key in the `templates` config option
 an exception will be raised.
 
-Note: it's NOT possible to load templates from a config option AND from the file system, you must either load all templates from the file system or define all templates in a confi option.
+Note: it's NOT possible to load templates from a config option AND from the file system, you must either load all templates from the file system or define all templates in a config option.
 
 ### Custom Helpers
 
