@@ -2,8 +2,9 @@ language: ruby
 
 rvm:
   - 1.9.3
-  - 2.0.0
-  - 2.1.4
+  - 2.0.0-p598
+  - 2.1.5
+  - 2.2.0
   - ruby-head
   - jruby-19mode
   - jruby-head
