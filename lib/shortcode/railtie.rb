@@ -1,3 +1,3 @@
-class Shortcode::Tag
+class Shortcode::TemplateBinding
   include ActionView::Helpers
 end

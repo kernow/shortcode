@@ -1,17 +1,8 @@
 class Shortcode::Tag
 
   def initialize(name, attributes=[], content='', additional_attributes=nil)
-    include_helper_modules
-    @name       = name.downcase
-    presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content, additional_attributes
-    @attributes = presenter.attributes
-    @content    = presenter.content
-  end
-
-  def set_attributes(attributes)
-    hash = {}
-    attributes.each { |o| hash[o[:key].to_sym] = o[:value] }
-    hash
+    @name = name.downcase
+    @binding = Shortcode::TemplateBinding.new(@name, attributes, content, additional_attributes)
   end
 
   def markup
@@ -28,23 +19,14 @@ class Shortcode::Tag
 
   private
 
-    def include_helper_modules
-      return unless Shortcode.configuration.helpers.any?
-      class << self
-        Shortcode.configuration.helpers.each do |helper|
-          include helper
-        end
-      end
-    end
-
     def render_template
       case Shortcode.configuration.template_parser
       when :erb
-        ERB.new(markup).result(binding)
+        ERB.new(markup).result(@binding.get_binding)
       when :haml
-        Haml::Engine.new(markup, ugly: true).render(binding)
+        Haml::Engine.new(markup, ugly: true).render(@binding)
       when :slim
-        Slim::Template.new { markup }.render(self)
+        Slim::Template.new { markup }.render(@binding)
       else
         raise Shortcode::TemplateParserNotSupported, Shortcode.configuration.template_parser
       end
