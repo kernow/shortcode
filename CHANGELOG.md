@@ -1,3 +1,19 @@
+## 1.0.1 (January 21, 2015)
+
+Features:
+
+  - Implemented a TemplateBinding class as the binding to templates to provide a clean interface
+  - Updated to parslet 1.6.2
+  - Updated to rspec 3.1
+
+Misc:
+
+  - Testing against the latest versions of Rails 3.1, 3.2, 4.0, 4.1 & 4.2
+  - Testing against the latest versions of Ruby 1.9.3-p551, 2.0.0-p598, 2.1.5 & 2.2.0
+  - Dropped test support for Rails 3.0
+  - Dropped test support for run 1.9.2
+  - README improvements
+
 ## 1.0.0 (July 29, 2014)
 
 Features:
