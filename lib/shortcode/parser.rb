@@ -8,8 +8,8 @@ class Shortcode::Parser < Parslet::Parser
   rule(:space)        { str(' ').repeat(1) }
   rule(:space?)       { space.maybe }
   rule(:newline)      { (str("\r\n") | str("\n")) >> space? }
+  rule(:newline?)     { newline.maybe }
   rule(:whitespace)   { (space | newline).repeat(1) }
-  rule(:whitespace?)  { whitespace.maybe }
 
   rule(:key) { match('[a-zA-Z0-9\-_]').repeat(1) }
 
@@ -21,9 +21,9 @@ class Shortcode::Parser < Parslet::Parser
   rule(:options)  { (str(' ') >> option).repeat(1) }
   rule(:options?) { options.repeat(0, 1) }
 
-  rule(:open)       { str('[') >> block_tag.as(:open) >> options?.as(:options) >> str(']') >> whitespace? }
-  rule(:close)      { str('[/') >> block_tag.as(:close) >> str(']') >> whitespace?  }
-  rule(:open_close) { str('[') >> self_closing_tag.as(:open_close) >> options?.as(:options) >> str(']') >> whitespace? }
+  rule(:open)       { str('[') >> block_tag.as(:open) >> options?.as(:options) >> str(']') >> newline? }
+  rule(:close)      { str('[/') >> block_tag.as(:close) >> str(']') >> newline? }
+  rule(:open_close) { str('[') >> self_closing_tag.as(:open_close) >> options?.as(:options) >> str(']') >> newline? }
 
   rule(:text)   { ((close | block | open_close).absent? >> any).repeat(1).as(:text) }
   rule(:block)  { (open >> (block | text | open_close).repeat.as(:inner) >> close) }

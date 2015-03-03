@@ -118,7 +118,7 @@ describe Shortcode::Parser do
             inner: [{ text: "A quote" }],
             close: "quote"
           },
-          { text: "<br> blah blah\n" }
+          { text: " <br> blah blah\n" }
         ])
       end
 
@@ -259,7 +259,7 @@ describe Shortcode::Parser do
             }],
             close: "collapsible_list"
           },
-          { text: "<p>Some more text</p>\n" }
+          { text: "\n<p>Some more text</p>\n" }
         ])
       end
     end

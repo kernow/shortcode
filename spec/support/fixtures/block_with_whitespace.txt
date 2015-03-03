@@ -1,0 +1,2 @@
+[rails_helper]this is bold[/rails_helper] and this is not bold.
+[rails_helper]this is italic[/rails_helper]without a space.
