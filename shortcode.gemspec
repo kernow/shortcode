@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jamie Dyer"]
   spec.email         = ["jamie@kernowsoul.com"]
   spec.description   = "Gem for parsing wordpress style shortcodes"
-  spec.summary       = "Gem for parsing wordpress style shortcodes"
+  spec.summary       = "Gem for parsing wordpress style shortcodes in ruby projects"
   spec.homepage      = "https://github.com/kernow/shortcode"
   spec.license       = "MIT"
 
@@ -21,9 +21,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency "parslet", "1.6.2"
 
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec", "~> 3.1.0"
-  spec.add_development_dependency "coveralls"
+  spec.add_development_dependency "rake", "~> 0"
+  spec.add_development_dependency "rspec", "~> 3.1"
+  spec.add_development_dependency "coveralls", "~> 0"
   spec.add_development_dependency "slim", "~> 3.0"
   spec.add_development_dependency "haml", "~> 4.0"
 end
