@@ -1,3 +1,9 @@
+## 1.0.2 (March 4, 2015)
+
+Fixes:
+
+  - Whitespace after tags is now preserved
+
 ## 1.0.1 (January 21, 2015)
 
 Features:
