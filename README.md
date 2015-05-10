@@ -40,9 +40,23 @@ Shortcode is very simple to use, simply call the `process` method and pass it a 
 Shortcode.process("[quote]Hello World[/quote]")
 ```
 
+In a Rails app, you can create helper methods to handle your shortcoded content and use them in your views with something similar to `<%= content_html @page.content %>`. Those two helper method can be used if your content contains html to be escaped or not.
+
+```ruby
+module PagesHelper
+  def content c
+    Shortcode.process c
+  end
+
+  def content_html c
+    raw content c
+  end
+end
+```
+
 ### Tags
 
-Any tags you wish to use with Shortcode need to be configured in the setup block, there are 2 types of tag, `block_tags` and `self_closing_tags`. Block tags have a matching open and close tag such as `[quote]A quote[/quote]`, self closing tags have no close tag, for example `[gallery]`. To define the tags Shortcode should parse do so in the configuration as follows:
+Any tags you wish to use with Shortcode need to be configured in the setup block, there are 2 types of tag, `block_tags` and `self_closing_tags`. Block tags have a matching open and close tag such as `[quote]A quote[/quote]`, self closing tags have no close tag, for example `[gallery]`. To define the tags Shortcode should parse do so in the configuration (in a Rails initializer for example) as follows:
 
 ```ruby
 Shortcode.setup do |config|
