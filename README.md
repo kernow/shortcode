@@ -201,7 +201,12 @@ Shortcode.process('[gallery]', { images: @post.images })
 To register a presenter simply call `Shortcode.register_presenter` passing the presenter class e.g.
 
 ```ruby
+# A single presenter
 Shortcode.register_presenter(CustomPresenter)
+
+# Or multiple presenters in one call
+Shortcode.register_presenter(CustomPresenter, AnotherPresenter)
+
 ```
 
 ### Configuration
