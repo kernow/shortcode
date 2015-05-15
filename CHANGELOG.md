@@ -1,3 +1,9 @@
+## 1.1.0 (May 15, 2015)
+
+Features:
+
+  - Support for registering multiple presenters with a single call
+
 ## 1.0.2 (March 4, 2015)
 
 Fixes:
