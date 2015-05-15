@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     shortcode (1.1.0)
-      parslet (= 1.6.2)
+      parslet (= 1.7.0)
 
 GEM
   remote: https://rubygems.org/
@@ -38,7 +38,7 @@ GEM
     mime-types (2.5)
     minitest (5.6.1)
     netrc (0.10.3)
-    parslet (1.6.2)
+    parslet (1.7.0)
       blankslate (>= 2.0, <= 4.0)
     rake (0.9.6)
     rest-client (1.8.0)
