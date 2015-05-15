@@ -23,8 +23,10 @@ module Shortcode
     yield configuration
   end
 
-  def self.register_presenter(presenter)
-    Shortcode::Presenter.register presenter
+  def self.register_presenter(*presenters)
+    presenters.each do |presenter|
+      Shortcode::Presenter.register presenter
+    end
   end
 
   private
