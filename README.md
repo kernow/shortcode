@@ -44,12 +44,12 @@ In a Rails app, you can create helper methods to handle your shortcoded content 
 
 ```ruby
 module PagesHelper
-  def content c
-    Shortcode.process c
+  def content(c)
+    Shortcode.process(c)
   end
 
-  def content_html c
-    raw content c
+  def content_html(c)
+    raw content(c)
   end
 end
 ```
