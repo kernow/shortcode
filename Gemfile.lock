@@ -27,7 +27,7 @@ GEM
     netrc (0.10.2)
     parslet (1.6.2)
       blankslate (>= 2.0, <= 4.0)
-    rake (0.9.6)
+    rake (10.4.2)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -64,9 +64,9 @@ PLATFORMS
 DEPENDENCIES
   appraisal (= 1.0.2)
   bundler (~> 1.3)
-  coveralls (~> 0)
+  coveralls
   haml (~> 4.0)
-  rake (~> 0)
-  rspec (~> 3.1)
+  rake
+  rspec (~> 3.1.0)
   shortcode!
   slim (~> 3.0)
