@@ -3,6 +3,7 @@ require 'parslet/rig/rspec'
 require 'pp'
 
 require 'support/presenters/my_presenter'
+require 'support/presenters/other_presenter'
 require 'support/presenters/multiple_presenter'
 require 'support/presenters/missing_for_presenter'
 require 'support/presenters/missing_initialize_presenter'
@@ -53,6 +54,35 @@ describe Shortcode::Presenter do
     it "passes through additional attributes" do
       expect(Shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'')).to eq(quote_attributes_output)
       expect(Shortcode.process(item,         { title: 'Additional attribute title' }).gsub("\n",'')).to eq(item_attributes_output)
+    end
+
+  end
+
+  context "presenter registration" do
+
+    describe "registering a single presenter" do
+
+      before do
+        Shortcode.register_presenter MyPresenter
+      end
+
+      it "adds the presenter to the list" do
+        expect(Shortcode::Presenter.presenters).to include(MyPresenter.for)
+      end
+
+    end
+
+    describe "registering multiple presenters" do
+
+      before do
+        Shortcode.register_presenter(MyPresenter, OtherPresenter)
+      end
+
+      it "adds the presenter to the list" do
+        expect(Shortcode::Presenter.presenters).to include(MyPresenter.for)
+        expect(Shortcode::Presenter.presenters).to include(OtherPresenter.for)
+      end
+
     end
 
   end
