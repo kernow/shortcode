@@ -44,8 +44,8 @@ describe Shortcode do
   context "full_quote" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(full_quote), additional_attributes: nil)
-      expect(html).to eq(full_quote_output)
+      stripped = transformer.apply(parser.parse(full_quote), additional_attributes: nil)
+      expect(stripped).to eq(full_quote_output)
     end
 
   end
@@ -53,8 +53,8 @@ describe Shortcode do
   context "quote_with_extras" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(quote_with_extras), additional_attributes: nil)
-      expect(html).to eq(quote_with_extras_output)
+      stripped = transformer.apply(parser.parse(quote_with_extras), additional_attributes: nil)
+      expect(stripped).to eq(quote_with_extras_output)
     end
 
   end
@@ -62,8 +62,8 @@ describe Shortcode do
   context "simple_list" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(simple_list), additional_attributes: nil)
-      expect(html).to eq(simple_list_output)
+      stripped = transformer.apply(parser.parse(simple_list), additional_attributes: nil)
+      expect(stripped).to eq(simple_list_output)
     end
 
   end
@@ -71,8 +71,8 @@ describe Shortcode do
   context "timeline_event" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(timeline_event), additional_attributes: nil)
-      expect(html).to eq(timeline_event_output)
+      stripped = transformer.apply(parser.parse(timeline_event), additional_attributes: nil)
+      expect(stripped).to eq(timeline_event_output)
     end
 
   end
@@ -80,8 +80,8 @@ describe Shortcode do
   context "timeline_info" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(timeline_info), additional_attributes: nil)
-      expect(html).to eq(timeline_info_output)
+      stripped = transformer.apply(parser.parse(timeline_info), additional_attributes: nil)
+      expect(stripped).to eq(timeline_info_output)
     end
 
   end
@@ -89,8 +89,8 @@ describe Shortcode do
   context "timeline_person" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(timeline_person), additional_attributes: nil)
-      expect(html).to eq(timeline_person_output)
+      stripped = transformer.apply(parser.parse(timeline_person), additional_attributes: nil)
+      expect(stripped).to eq(timeline_person_output)
     end
 
   end
@@ -98,24 +98,24 @@ describe Shortcode do
   context "complex_snippet" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(complex_snippet), additional_attributes: nil)
-      expect(html).to eq(complex_snippet_output)
+      stripped = transformer.apply(parser.parse(complex_snippet), additional_attributes: nil)
+      expect(stripped).to eq(complex_snippet_output)
     end
   end
 
   context "erb templates" do
 
     it "strips the shortcodes" do
-      html = transformer.apply(parser.parse(simple_quote), additional_attributes: nil)
-      expect(html).to eq(simple_quote_output)
+      stripped = transformer.apply(parser.parse(simple_quote), additional_attributes: nil)
+      expect(stripped).to eq(simple_quote_output)
     end
   end
 
   context 'whitespace' do
 
     it 'is preserved after a block tag' do
-      html = transformer.apply(parser.parse(block_with_whitespace), additional_attributes: nil)
-      expect(html).to eq(block_with_whitespace_output)
+      stripped = transformer.apply(parser.parse(block_with_whitespace), additional_attributes: nil)
+      expect(stripped).to eq(block_with_whitespace_output)
     end
 
   end
