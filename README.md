@@ -54,6 +54,12 @@ module PagesHelper
 end
 ```
 
+If you need to strip the shortcodes out of a string, you can call the `strip` method with your string as argument. This can be very useful for excerpts of content required not to show image galleries.
+
+```ruby
+Shortcode.strip("Hello World! [gallery]")
+```
+
 ### Tags
 
 Any tags you wish to use with Shortcode need to be configured in the setup block, there are 2 types of tag, `block_tags` and `self_closing_tags`. Block tags have a matching open and close tag such as `[quote]A quote[/quote]`, self closing tags have no close tag, for example `[gallery]`. To define the tags Shortcode should parse do so in the configuration (in a Rails initializer for example) as follows:
