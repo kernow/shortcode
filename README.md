@@ -54,7 +54,7 @@ module PagesHelper
 end
 ```
 
-If you need to strip the shortcodes out of a string, you can call the `strip` method with your string as argument. This can be very useful for excerpts of content required not to show image galleries.
+If you need to strip the shortcodes out of a string, you can call the `strip` method with your string as argument. This can be very useful, for example, to get excerpts of content required not to show image galleries.
 
 ```ruby
 Shortcode.strip("Hello World! [gallery]")
