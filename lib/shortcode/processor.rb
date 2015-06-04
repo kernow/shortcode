@@ -4,6 +4,10 @@ class Shortcode::Processor
     transformer.apply parser.parse(string), additional_attributes: additional_attributes
   end
 
+  def strip(string, additional_attributes=nil)
+    stripper.apply parser.parse(string), additional_attributes: additional_attributes
+  end
+
   private
 
     def parser
@@ -12,6 +16,10 @@ class Shortcode::Processor
 
     def transformer
       @transformer ||= Shortcode::Transformer.new
+    end
+
+    def stripper
+      @stripper ||= Shortcode::Stripper.new()
     end
 
 end

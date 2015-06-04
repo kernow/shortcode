@@ -19,6 +19,10 @@ module Shortcode
     Shortcode::Processor.new.process string, additional_attributes
   end
 
+  def self.strip(string)
+    Shortcode::Processor.new.strip string
+  end
+
   def self.setup
     yield configuration
   end
@@ -42,6 +46,7 @@ require 'shortcode/configuration'
 require 'shortcode/parser'
 require 'shortcode/presenter'
 require 'shortcode/processor'
+require 'shortcode/stripper'
 require 'shortcode/template_binding'
 require 'shortcode/transformer'
 require 'shortcode/tag'
