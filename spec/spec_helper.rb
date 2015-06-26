@@ -24,7 +24,7 @@ RSpec.configure do |config|
       config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
       config.templates = nil
       config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
-      config.self_closing_tags = [:timeline_event, :timeline_info]
+      config.self_closing_tags = [:timeline_event, :timeline_info, :first_name]
       config.attribute_quote_type = '"'
       config.use_attribute_quotes = true
     end

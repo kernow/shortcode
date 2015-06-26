@@ -1,0 +1,5 @@
+Hello [first_name] welcome!
+Hello [first_name]welcome without whitespace
+Hello [first_name]
+
+welcome!

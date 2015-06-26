@@ -80,7 +80,7 @@ describe Shortcode::Parser do
       let(:parsed_object) { parser.parse(simple_quote) }
 
       it "created the expected object" do
-        expect(parsed_object[:body]).to eq([{ open: "quote", options: [], inner: [{ text: "hello" }], close: "quote" }])
+        expect(parsed_object[:body]).to eq([{ open: "quote", options: [], inner: [{ text: "hello" }], close: "quote" }, {text: "\n"}])
       end
 
     end
@@ -98,7 +98,7 @@ describe Shortcode::Parser do
           ],
           inner: [{ text: "A quote" }],
           close: "quote"
-        }])
+        }, {text: "\n"}])
       end
 
     end
@@ -137,21 +137,21 @@ describe Shortcode::Parser do
             options: [{ key: "title", value: "Example title 1" }],
             inner: [{ text: "Example content 1" }],
             close: "item"
-          },
+          }, {text: "\n"},
           {
             open: "item",
             options: [{ key: "title", value: "Example title 2" }],
             inner: [{ text: "Example content 2" }],
             close: "item"
-          },
+          }, {text: "\n"},
           {
             open: "item",
             options: [{ key: "title", value: "Example title 3" }],
             inner: [{ text: "Example content 3" }],
             close: "item"
-          }],
+          }, {text: "\n"}],
           close: "collapsible_list"
-        }])
+        }, {text: "\n"}])
       end
 
     end
@@ -168,7 +168,7 @@ describe Shortcode::Parser do
             { key: "title", value: "a title" },
             { key: "link", value: "http://blah.com" }
           ]
-        }])
+        }, { text: "\n" }])
       end
 
     end
@@ -184,7 +184,7 @@ describe Shortcode::Parser do
             { key: "date", value: "Feb 2013" },
             { key: "title", value: "Something amazing" }
           ]
-        }])
+        }, { text: "\n" }])
       end
 
     end
@@ -206,7 +206,7 @@ describe Shortcode::Parser do
           ],
           inner: [{ text: "A bit of body copy\nwith a newline\n" }],
           close: "timeline_person"
-        }])
+        }, {text: "\n"}])
       end
 
     end
@@ -233,7 +233,7 @@ describe Shortcode::Parser do
                 inner: [{ text: "A quote" }],
                 close: "quote"
               },
-              { text: "I'm inbetween 2 quotes!\n    " },
+              { text: "\n    I'm inbetween 2 quotes!\n    " },
               {
                 open: "quote",
                 options: [
@@ -242,24 +242,24 @@ describe Shortcode::Parser do
                 ],
                 inner: [{text: "Life is like..."}],
                 close: "quote"
-              }],
+              }, {text: "\n  "}],
             close: "item"
-            },
+            }, {text: "\n  "},
             {
               open: "item",
               options: [{ key: "title", value: "Example title 2" }],
               inner: [{ text: "Example content 2" }],
               close: "item"
-            },
+            }, {text: "\n  "},
             {
               open: "item",
               options: [{ key: "title", value: "Example title 3" }],
               inner: [{ text: "Example content 3" }],
               close: "item"
-            }],
+            }, {text: "\n"}],
             close: "collapsible_list"
           },
-          { text: "\n<p>Some more text</p>\n" }
+          { text: "\n\n<p>Some more text</p>\n" }
         ])
       end
     end

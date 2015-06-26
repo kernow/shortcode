@@ -22,8 +22,8 @@ class Shortcode::Parser < Parslet::Parser
   rule(:options?) { options.repeat(0, 1) }
 
   rule(:open)       { str('[') >> block_tag.as(:open) >> options?.as(:options) >> str(']') >> newline? }
-  rule(:close)      { str('[/') >> block_tag.as(:close) >> str(']') >> newline? }
-  rule(:open_close) { str('[') >> self_closing_tag.as(:open_close) >> options?.as(:options) >> str(']') >> newline? }
+  rule(:close)      { str('[/') >> block_tag.as(:close) >> str(']') }
+  rule(:open_close) { str('[') >> self_closing_tag.as(:open_close) >> options?.as(:options) >> str(']') }
 
   rule(:text)   { ((close | block | open_close).absent? >> any).repeat(1).as(:text) }
   rule(:block)  { (open >> (block | text | open_close).repeat.as(:inner) >> close) }

@@ -16,6 +16,7 @@ describe Shortcode do
   let(:timeline_person)       { load_fixture :timeline_person }
   let(:complex_snippet)       { load_fixture :complex_snippet }
   let(:block_with_whitespace) { load_fixture :block_with_whitespace }
+  let(:whitespace)            { load_fixture :whitespace }
 
   let(:quotes)            { [simple_quote, full_quote, quote_with_extras] }
   let(:collapsible_lists) { [simple_list] }
@@ -30,6 +31,7 @@ describe Shortcode do
   let(:timeline_person_output)       { load_fixture :timeline_person_output, :html }
   let(:complex_snippet_output)       { load_fixture :complex_snippet_output, :html }
   let(:block_with_whitespace_output) { load_fixture :block_with_whitespace_output, :html }
+  let(:whitespace_output)            { load_fixture :whitespace_output, :html, { remove_whitespace: false } }
 
   context "simple_quote" do
 
@@ -116,6 +118,11 @@ describe Shortcode do
     it 'is preserved after a block tag' do
       html = transformer.apply(parser.parse(block_with_whitespace), additional_attributes: nil)
       expect(html.gsub("\n",'')).to eq(block_with_whitespace_output)
+    end
+
+    it 'is preserved after a tag' do
+      html = transformer.apply(parser.parse(whitespace), additional_attributes: nil)
+      expect(html).to eq(whitespace_output)
     end
 
   end
