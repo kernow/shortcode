@@ -125,5 +125,13 @@ describe Shortcode do
       expect(html).to eq(whitespace_output)
     end
 
+    let(:str_in)  { "Hello [first_name],\r\n\r\nThanks!" }
+    let(:str_out) { "Hello Simon,\r\n\r\nThanks!" }
+
+    it 'is preserved after a tag 2' do
+      html = transformer.apply(parser.parse(str_in), additional_attributes: nil)
+      expect(html).to eq(str_out)
+    end
+
   end
 end
