@@ -26,6 +26,46 @@ describe Shortcode::Parser do
     end
   end
 
+  describe "matching similar tags" do
+
+    context "with the smaller tag listed first" do
+
+      before do
+        Shortcode.setup do |config|
+          config.block_tags = [:xx, :xxx]
+        end
+      end
+
+      it "parses xx" do
+        expect(parser.open).to parse("[xx]")
+      end
+
+      it "parses xxx" do
+        expect(parser.open).to parse("[xxx]")
+      end
+
+    end
+
+    context "with the smaller tag listed last" do
+
+      before do
+        Shortcode.setup do |config|
+          config.block_tags = [:xxx, :xx]
+        end
+      end
+
+      it "parses xx" do
+        expect(parser.open).to parse("[xx]")
+      end
+
+      it "parses xxx" do
+        expect(parser.open).to parse("[xxx]")
+      end
+
+    end
+
+  end
+
   context "attribute_quote_type configuration" do
 
     before do
