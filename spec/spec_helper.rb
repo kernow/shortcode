@@ -12,7 +12,7 @@ require 'shortcode'
 require 'support/fixtures'
 
 # Set slim's attribute quotes to use single quotes so it's the same as haml
-Slim::Engine.set_default_options attr_quote: "'"
+Slim::Engine.set_options attr_quote: "'"
 
 RSpec.configure do |config|
   config.order = "random"
