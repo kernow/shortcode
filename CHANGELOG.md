@@ -1,3 +1,18 @@
+## 1.1.1 (September 14, 2015)
+
+Features:
+
+  - Updated to parslet 1.7.1
+  - Updated to rspec 3.3
+
+Fixes:
+
+  - The order registered tags are defined no longer causes parsing to work incorrectly
+
+Misc:
+
+  - Testing against the latest versions of Rails 4.1 & 4.2
+
 ## 1.1.0 (May 15, 2015)
 
 Features:
