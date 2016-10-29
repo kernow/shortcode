@@ -16,7 +16,7 @@ module Shortcode
   end
 
   def self.process(string, additional_attributes=nil)
-    Shortcode::Processor.new.process string, additional_attributes
+    Shortcode::Processor.new(@configuration).process string, additional_attributes
   end
 
   def self.setup
