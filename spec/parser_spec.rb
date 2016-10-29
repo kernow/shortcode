@@ -4,7 +4,19 @@ require 'pp'
 
 describe Shortcode::Parser do
 
-  let(:parser) { Shortcode::Parser.new }
+  let(:configuration) {
+    config = Shortcode::Configuration.new
+    config.template_parser = :erb
+    config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+    config.templates = nil
+    config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
+    config.self_closing_tags = [:timeline_event, :timeline_info]
+    config.attribute_quote_type = '"'
+    config.use_attribute_quotes = true
+    config
+  }
+
+  let(:parser) { Shortcode::Parser.new(configuration) }
 
   let(:simple_quote)      { load_fixture :simple_quote }
   let(:full_quote)        { load_fixture :full_quote }
@@ -29,12 +41,11 @@ describe Shortcode::Parser do
   describe "matching similar tags" do
 
     context "with the smaller tag listed first" do
-
-      before do
-        Shortcode.setup do |config|
-          config.block_tags = [:xx, :xxx]
-        end
-      end
+      let(:configuration) {
+        config = Shortcode::Configuration.new
+        config.block_tags = [:xx, :xxx]
+        config
+      }
 
       it "parses xx" do
         expect(parser.open).to parse("[xx]")
@@ -48,11 +59,11 @@ describe Shortcode::Parser do
 
     context "with the smaller tag listed last" do
 
-      before do
-        Shortcode.setup do |config|
-          config.block_tags = [:xxx, :xx]
-        end
-      end
+      let(:configuration) {
+        config = Shortcode::Configuration.new
+        config.block_tags = [:xxx, :xx]
+        config
+      }
 
       it "parses xx" do
         expect(parser.open).to parse("[xx]")
@@ -68,11 +79,11 @@ describe Shortcode::Parser do
 
   context "attribute_quote_type configuration" do
 
-    before do
-      Shortcode.setup do |config|
-        config.attribute_quote_type = "'"
-      end
-    end
+    let(:configuration) {
+      config = Shortcode::Configuration.new
+      config.attribute_quote_type = "'"
+      config
+    }
 
     it "parses quotes using custom quotations" do
       quotes.each do |string|
@@ -85,11 +96,11 @@ describe Shortcode::Parser do
 
   context "use_attribute_quotes configuration" do
 
-    before do
-      Shortcode.setup do |config|
-        config.use_attribute_quotes = false
-      end
-    end
+    let(:configuration) {
+      config = Shortcode::Configuration.new
+      config.use_attribute_quotes = false
+      config
+    }
 
     it "parses shortcodes with optional quotes" do
       expect(parser).to parse(without_quotes)
