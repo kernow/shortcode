@@ -1,22 +1,9 @@
 require 'spec_helper'
 
-describe "template parsers" do
+describe "template parsers", :type => :singleton_setup do
 
   let(:simple_quote)        { load_fixture :simple_quote }
   let(:simple_quote_output) { load_fixture :simple_quote_output, :html }
-
-  before(:each) do
-    Shortcode.setup do |config|
-      config.template_parser = :erb
-      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
-      config.templates = nil
-      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
-      config.self_closing_tags = [:timeline_event, :timeline_info]
-      config.attribute_quote_type = '"'
-      config.use_attribute_quotes = true
-      config.presenters = {}
-    end
-  end
 
   context "erb" do
 

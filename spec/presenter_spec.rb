@@ -10,23 +10,10 @@ require 'support/presenters/missing_initialize_presenter'
 require 'support/presenters/missing_content_presenter'
 require 'support/presenters/missing_attributes_presenter'
 
-describe Shortcode::Presenter do
+describe Shortcode::Presenter, :type => :singleton_setup do
 
   let(:simple_quote)  { load_fixture :simple_quote }
   let(:item)          { load_fixture :item }
-
-  before(:each) do
-    Shortcode.setup do |config|
-      config.template_parser = :erb
-      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
-      config.templates = nil
-      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
-      config.self_closing_tags = [:timeline_event, :timeline_info]
-      config.attribute_quote_type = '"'
-      config.use_attribute_quotes = true
-      config.presenters = {}
-    end
-  end
 
   describe "using a custom presenter" do
 

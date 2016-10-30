@@ -16,4 +16,17 @@ Slim::Engine.set_options attr_quote: "'"
 
 RSpec.configure do |config|
   config.order = "random"
+
+  config.before(:each, :type => :singleton_setup) do
+    Shortcode.setup do |config|
+      config.template_parser = :erb
+      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+      config.templates = nil
+      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
+      config.self_closing_tags = [:timeline_event, :timeline_info]
+      config.attribute_quote_type = '"'
+      config.use_attribute_quotes = true
+      config.presenters = {}
+    end
+  end
 end
