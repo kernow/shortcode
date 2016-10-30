@@ -15,6 +15,18 @@ describe Shortcode::Presenter do
   let(:simple_quote)  { load_fixture :simple_quote }
   let(:item)          { load_fixture :item }
 
+  before do
+    Shortcode.setup do |config|
+      config.template_parser = :erb
+      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+      config.templates = nil
+      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
+      config.self_closing_tags = [:timeline_event, :timeline_info]
+      config.attribute_quote_type = '"'
+      config.use_attribute_quotes = true
+    end
+  end
+
   describe "using a custom presenter" do
 
     let(:presenter_output)  { load_fixture :simple_quote_presenter_output, :html }
@@ -67,7 +79,7 @@ describe Shortcode::Presenter do
       end
 
       it "adds the presenter to the list" do
-        expect(Shortcode::Presenter.presenters).to include(MyPresenter.for)
+        expect(Shortcode.configuration.presenters).to include(MyPresenter.for)
       end
 
     end
@@ -79,8 +91,8 @@ describe Shortcode::Presenter do
       end
 
       it "adds the presenter to the list" do
-        expect(Shortcode::Presenter.presenters).to include(MyPresenter.for)
-        expect(Shortcode::Presenter.presenters).to include(OtherPresenter.for)
+        expect(Shortcode.configuration.presenters).to include(MyPresenter.for)
+        expect(Shortcode.configuration.presenters).to include(OtherPresenter.for)
       end
 
     end

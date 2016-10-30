@@ -3,7 +3,7 @@ class Shortcode::TemplateBinding
   def initialize(name, configuration, attributes=[], content='', additional_attributes=nil)
     @configuration = configuration
     include_helper_modules
-    presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content, additional_attributes
+    presenter   = Shortcode::Presenter.new name, configuration, set_attributes(attributes), content, additional_attributes
     @name       = name
     @attributes = presenter.attributes
     @content    = presenter.content

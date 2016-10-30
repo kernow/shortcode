@@ -11,6 +11,9 @@ class Shortcode::Configuration
   # Assigns helper modules to be included in templates
   attr_accessor :helpers
 
+  # Set the supported presenters
+  attr_reader :presenters
+
   # Set the supported block_tags
   attr_reader :block_tags
   def block_tags=(block_tags)
@@ -38,5 +41,22 @@ class Shortcode::Configuration
     @self_closing_tags    = []
     @attribute_quote_type = '"'
     @use_attribute_quotes = true
+    @presenters = {}
   end
+
+  def register_presenter(presenter)
+    validate_presenter presenter
+    [*presenter.for].each { |k| presenters[k.to_sym] = presenter }
+  end
+
+  private
+
+    def validate_presenter(presenter)
+      raise ArgumentError, "The presenter must define the class method #for" unless presenter.respond_to?(:for)
+      raise ArgumentError, "The presenter must define an initialize method" unless presenter.private_instance_methods(false).include?(:initialize)
+      %w(content attributes).each do |method|
+        raise ArgumentError, "The presenter must define the method ##{method}" unless presenter.method_defined?(method.to_sym)
+      end
+    end
+
 end

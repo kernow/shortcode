@@ -16,8 +16,4 @@ Slim::Engine.set_options attr_quote: "'"
 
 RSpec.configure do |config|
   config.order = "random"
-
-  config.before(:each) do
-    Shortcode::Presenter.presenters = {}
-  end
 end

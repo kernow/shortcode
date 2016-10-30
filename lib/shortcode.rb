@@ -12,7 +12,7 @@ rescue LoadError; end
 module Shortcode
 
   class << self
-    attr_writer :configuration
+    attr_accessor :configuration
   end
 
   def self.process(string, additional_attributes=nil)
@@ -25,7 +25,7 @@ module Shortcode
 
   def self.register_presenter(*presenters)
     presenters.each do |presenter|
-      Shortcode::Presenter.register presenter
+      self.configuration.register_presenter presenter
     end
   end
 
