@@ -5,6 +5,18 @@ describe "template parsers" do
   let(:simple_quote)        { load_fixture :simple_quote }
   let(:simple_quote_output) { load_fixture :simple_quote_output, :html }
 
+  before do
+    Shortcode.setup do |config|
+      config.template_parser = :erb
+      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+      config.templates = nil
+      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
+      config.self_closing_tags = [:timeline_event, :timeline_info]
+      config.attribute_quote_type = '"'
+      config.use_attribute_quotes = true
+    end
+  end
+
   context "erb" do
 
     it "can render a template" do
