@@ -24,10 +24,8 @@ class Shortcode::TemplateBinding
 
     def include_helper_modules
       return unless @configuration.helpers.any?
-      class << self
-        @configuration.helpers.each do |helper|
-          include helper
-        end
+      @configuration.helpers.each do |helper|
+        extend helper
       end
     end
 

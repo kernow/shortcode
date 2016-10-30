@@ -14,6 +14,19 @@ describe "rails helpers" do
   let(:haml_output) { load_fixture :rails_helper_output_haml, :html }
   let(:slim_output) { load_fixture :rails_helper_output_slim, :html }
 
+  before(:each) do
+    Shortcode.setup do |config|
+      config.template_parser = :erb
+      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+      config.templates = nil
+      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
+      config.self_closing_tags = [:timeline_event, :timeline_info]
+      config.attribute_quote_type = '"'
+      config.use_attribute_quotes = true
+      config.presenters = {}
+    end
+  end
+
   describe "erb" do
 
     it "are accessible within erb templates" do
