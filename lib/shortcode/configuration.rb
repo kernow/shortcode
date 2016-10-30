@@ -12,7 +12,7 @@ class Shortcode::Configuration
   attr_accessor :helpers
 
   # Set the supported presenters
-  attr_reader :presenters
+  attr_accessor :presenters
 
   # Set the supported block_tags
   attr_reader :block_tags
