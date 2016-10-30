@@ -4,8 +4,20 @@ require 'pp'
 
 describe Shortcode do
 
-  let(:parser)      { Shortcode::Parser.new }
-  let(:transformer) { Shortcode::Transformer.new }
+  let(:configuration) {
+    Shortcode::Configuration.new.tap do |config|
+      config.template_parser = :erb
+      config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+      config.templates = nil
+      config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper, :custom_helper]
+      config.self_closing_tags = [:timeline_event, :timeline_info]
+      config.attribute_quote_type = '"'
+      config.use_attribute_quotes = true
+    end
+  }
+
+  let(:parser)      { Shortcode::Parser.new(configuration) }
+  let(:transformer) { Shortcode::Transformer.new(configuration) }
 
   let(:simple_quote)          { load_fixture :simple_quote }
   let(:full_quote)            { load_fixture :full_quote }
