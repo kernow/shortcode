@@ -1,12 +1,10 @@
 class Shortcode::Parser < Parslet::Parser
 
   def initialize(configuration)
-    @configuration = configuration
+    self.class.rule(:block_tag)        { match_any_of configuration.block_tags }
+    self.class.rule(:self_closing_tag) { match_any_of configuration.self_closing_tags }
 
-    self.class.rule(:block_tag)        { match_any_of @configuration.block_tags }
-    self.class.rule(:self_closing_tag) { match_any_of @configuration.self_closing_tags }
-
-    self.class.rule(:quotes) { str(@configuration.attribute_quote_type) }
+    self.class.rule(:quotes) { str(configuration.attribute_quote_type) }
 
     self.class.rule(:space)        { str(' ').repeat(1) }
     self.class.rule(:space?)       { space.maybe }
@@ -18,7 +16,7 @@ class Shortcode::Parser < Parslet::Parser
 
     self.class.rule(:value_with_quotes) { quotes >> (quotes.absent? >> any).repeat.as(:value) >> quotes }
     self.class.rule(:value_without_quotes) { quotes.absent? >> ( (str(']') | whitespace).absent? >> any ).repeat.as(:value) }
-    self.class.rule(:value) { @configuration.use_attribute_quotes ? value_with_quotes : (value_without_quotes | value_with_quotes) }
+    self.class.rule(:value) { configuration.use_attribute_quotes ? value_with_quotes : (value_without_quotes | value_with_quotes) }
 
     self.class.rule(:option)   { key.as(:key) >> str('=') >> value }
     self.class.rule(:options)  { (str(' ') >> option).repeat(1) }
