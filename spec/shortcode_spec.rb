@@ -54,4 +54,29 @@ describe Shortcode do
 
   end
 
+  context "multiple instances" do
+    let(:shortcode1) { Shortcode.new }
+    let(:shortcode2) { Shortcode.new }
+
+    it "allows having multiple Shortcode instances that have independent configurations" do
+      expect(shortcode1.send(:configuration)).to_not be(shortcode2.send(:configuration))
+    end
+
+    it "uses the shortcode instance's configuration to process shortcodes" do
+      shortcode1.setup do |config|
+        config.self_closing_tags << :quote
+        config.templates = { quote: 'i am from shortcode 1' }
+      end
+
+      shortcode2.setup do |config|
+        config.self_closing_tags << :quote
+        config.templates = { quote: 'i am from shortcode 2' }
+      end
+
+      expect(shortcode1.process('[quote]')).to eq('i am from shortcode 1')
+      expect(shortcode2.process('[quote]')).to eq('i am from shortcode 2')
+    end
+
+  end
+
 end
