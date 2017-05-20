@@ -27,8 +27,8 @@ Or install it yourself as:
 $ gem install shortcode
 ```
 
-Shortcode is tested against ruby version 2.0, 2.1, and 2.2 as well as jruby, it will not work with ruby 1.8 and is no longer tested against ruby 1.9. Shortcode rails integration is tested against
-Rails versions 3.2, 4.0, 4.1 and 4.2.
+Shortcode is tested against ruby version 2.2, 2.3, and 2.4 as well as jruby (2.x compatible), it will not work with ruby 1.8 and is no longer tested against ruby 1.9. Shortcode rails integration is tested against
+Rails versions 4.1, 4.2, 5.0 and 5.1.
 
 ## Usage
 
