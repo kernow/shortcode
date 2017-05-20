@@ -28,7 +28,7 @@ class Shortcode::TemplateBinding
     return unless configuration.helpers.any?
 
     configuration.helpers.each do |helper|
-      self.class.include(helper)
+      self.class.send(:include, helper)
     end
   end
 end
