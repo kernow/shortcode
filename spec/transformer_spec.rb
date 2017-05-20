@@ -3,9 +3,9 @@ require 'parslet/rig/rspec'
 require 'pp'
 
 describe Shortcode do
-
-  let(:parser)      { Shortcode::Parser.new }
-  let(:transformer) { Shortcode::Transformer.new }
+  configuration = Shortcode.singleton.send(:configuration)
+  let(:parser)      { Shortcode::Parser.new(configuration) }
+  let(:transformer) { Shortcode::Transformer.new(configuration) }
 
   let(:simple_quote)          { load_fixture :simple_quote }
   let(:full_quote)            { load_fixture :full_quote }

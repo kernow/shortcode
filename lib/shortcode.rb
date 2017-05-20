@@ -25,6 +25,11 @@ class Shortcode
     singleton.setup(&prc)
   end
 
+  # This is providedc for backwards compatibility
+  def self.register_presenter(*presenters)
+    singleton.register_presenter(*presenters)
+  end
+
   def process(string, additional_attributes=nil)
     Shortcode::Processor.new.process(string, configuration, additional_attributes)
   end

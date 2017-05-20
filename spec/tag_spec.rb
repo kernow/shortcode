@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe Shortcode::Tag do
+  let(:configuration) { Shortcode.singleton.send(:configuration) }
 
   context "when the template file is missing" do
 
-    let(:tag) { Shortcode::Tag.new('doesnt_exist') }
+    let(:tag) { Shortcode::Tag.new('doesnt_exist', configuration) }
 
     it "raises a TemplateNotFound error when the file doesn't exists" do
       expect { tag.render }.to raise_error(Shortcode::TemplateNotFound)
@@ -14,7 +15,7 @@ describe Shortcode::Tag do
 
   context "when an unsupported template parser is specified" do
 
-    let(:tag) { Shortcode::Tag.new('quote') }
+    let(:tag) { Shortcode::Tag.new('quote', configuration) }
 
     before(:each) do
       Shortcode.setup do |config|
@@ -30,7 +31,7 @@ describe Shortcode::Tag do
 
   context "templates from strings" do
 
-    let(:tag) { Shortcode::Tag.new('from_string', [{ key: 'string', value: 'batman' }]) }
+    let(:tag) { Shortcode::Tag.new('from_string', configuration, [{ key: 'string', value: 'batman' }]) }
 
     before(:each) do
       Shortcode.setup do |config|
@@ -48,7 +49,7 @@ describe Shortcode::Tag do
 
   context "when the template is missing from the config" do
 
-    let(:tag) { Shortcode::Tag.new('missing', [{ key: 'string', value: 'batman' }]) }
+    let(:tag) { Shortcode::Tag.new('missing', configuration, [{ key: 'string', value: 'batman' }]) }
 
     before(:each) do
       Shortcode.setup do |config|

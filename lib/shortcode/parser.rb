@@ -8,6 +8,10 @@ class Shortcode::Parser
     klass_instance.parse(string)
   end
 
+  def open(*args)
+    klass_instance.open(*args)
+  end
+
   private
 
   # This allows us to create a new class with the rules for the specific configuration

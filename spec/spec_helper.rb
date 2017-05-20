@@ -16,9 +16,9 @@ Slim::Engine.set_options attr_quote: "'"
 
 RSpec.configure do |config|
   config.order = "random"
+  config.color = true
 
   config.before(:each) do
-    Shortcode::Presenter.presenters = {}
     Shortcode.setup do |config|
       config.template_parser = :erb
       config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
@@ -27,6 +27,7 @@ RSpec.configure do |config|
       config.self_closing_tags = [:timeline_event, :timeline_info]
       config.attribute_quote_type = '"'
       config.use_attribute_quotes = true
+      config.presenters = {}
     end
   end
 end
