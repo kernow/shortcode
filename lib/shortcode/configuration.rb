@@ -11,6 +11,9 @@ class Shortcode::Configuration
   # Assigns helper modules to be included in templates
   attr_accessor :helpers
 
+  # Allows presenters to be set that can be used to process shortcode arguments before rendered
+  attr_accessor :presenters
+
   # Set the supported block_tags
   attr_reader :block_tags
   def block_tags=(block_tags)
@@ -38,5 +41,10 @@ class Shortcode::Configuration
     @self_closing_tags    = []
     @attribute_quote_type = '"'
     @use_attribute_quotes = true
+    @presenters           = {}
+  end
+
+  def register_presenter(presenter)
+    Shortcode::Presenter.register(self, presenter)
   end
 end

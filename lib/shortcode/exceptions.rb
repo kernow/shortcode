@@ -1,4 +1,4 @@
-module Shortcode
+class Shortcode
 
   # Raised when the template file can not be found
   class TemplateNotFound < StandardError; end
