@@ -13,7 +13,7 @@ sudo: false
 script: bundle exec rspec
 
 before_install:
-  - gem install bundler -v 1.10.6
+  - gem install bundler -v 1.15.0
 
 matrix:
   allow_failures:

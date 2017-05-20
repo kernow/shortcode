@@ -18,12 +18,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "parslet", "1.7.1"
+  spec.add_dependency "parslet", "1.8.0"
 
-  spec.add_development_dependency "bundler", "~> 1.10"
-  spec.add_development_dependency "rake", "~> 10.4"
-  spec.add_development_dependency "rspec", "~> 3.3"
-  spec.add_development_dependency "coveralls", "~> 0"
+  spec.add_development_dependency "bundler", "~> 1.15"
+  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rspec", "~> 3.6"
+  spec.add_development_dependency "coveralls", "~> 0.8"
   spec.add_development_dependency "slim", "~> 3.0"
-  spec.add_development_dependency "haml", "~> 4.0"
+  spec.add_development_dependency "haml", "~> 5.0"
 end

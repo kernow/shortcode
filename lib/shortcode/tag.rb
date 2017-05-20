@@ -24,7 +24,7 @@ class Shortcode::Tag
       when :erb
         ERB.new(markup).result(@binding.get_binding)
       when :haml
-        Haml::Engine.new(markup, ugly: true).render(@binding)
+        Haml::Engine.new(markup).render(@binding)
       when :slim
         Slim::Template.new { markup }.render(@binding)
       else
