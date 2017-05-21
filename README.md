@@ -36,8 +36,18 @@ Rails versions 4.1, 4.2, 5.0 and 5.1.
 
 Shortcode is very simple to use, simply call the `process` method and pass it a string containing shortcode markup.
 
+You can create multiple instances of `Shortcode` with separate configurations for each, or you can call methods directly on `Shortcode` to use the same configuration throughout.  Throughout this Readme we will refer to calling methods directly on the class as "Singleton", and creating multiple instances as "Instance"
+
+#### Singleton
+
 ```ruby
 Shortcode.process("[quote]Hello World[/quote]")
+```
+
+#### Instance
+```ruby
+shortcode = Shortcode.new
+shortcode.process("[quote]Hello World[/quote]")
 ```
 
 In a Rails app, you can create helper methods to handle your shortcoded content and use them in your views with something similar to `<%= content_html @page.content %>`. Those two helper method can be used if your content contains html to be escaped or not.
@@ -58,10 +68,31 @@ end
 
 Any tags you wish to use with Shortcode need to be configured in the setup block, there are 2 types of tag, `block_tags` and `self_closing_tags`. Block tags have a matching open and close tag such as `[quote]A quote[/quote]`, self closing tags have no close tag, for example `[gallery]`. To define the tags Shortcode should parse do so in the configuration (in a Rails initializer for example) as follows:
 
+#### Singleton
+
 ```ruby
 Shortcode.setup do |config|
   config.block_tags = [:quote, :list]
   config.self_closing_tags = [:gallery, :widget]
+end
+```
+
+#### Instance
+```ruby
+shortcode = Shortcode.new
+shortcode.setup do |config|
+  config.block_tags = [:quote, :list]
+  config.self_closing_tags = [:gallery, :widget]
+end
+```
+
+Note that you can call the setup block multiple times if need be and add to it.
+
+For example:
+
+```ruby
+shortcode.setup do |config|
+  config.block_tags << :other_tag
 end
 ```
 
@@ -117,8 +148,20 @@ Note: only 1 template parser is supported at a time, if using haml for instance 
 The alternative way to define templates is to set them using the `templates` config option, this option can take a hash with keys of the same name as the shortcode tags and
 values containing a template string. For instance:
 
+##### Singleton
+
 ```ruby
 Shortcode.setup do |config|
+  config.templates = { gallery: 'template code' }
+end
+```
+
+##### Instance
+
+```ruby
+shortcode = Shortcode.new
+
+shortcode.setup do |config|
   config.templates = { gallery: 'template code' }
 end
 ```
@@ -132,8 +175,20 @@ Note: it's NOT possible to load templates from a config option AND from the file
 
 If you wish to use custom helper modules in templates you can do so by specifying the helpers in a setup block which should be an array. Methods in the helper modules will then become available within all templates.
 
+#### Singleton
+
 ```ruby
 Shortcode.setup do |config|
+  config.helpers = [CustomHelper, AnotherCustomHelper]
+end
+```
+
+#### Instance
+
+```ruby
+shortcode = Shortcode.new
+
+shortcode.setup do |config|
   config.helpers = [CustomHelper, AnotherCustomHelper]
 end
 ```
@@ -167,15 +222,15 @@ class GalleryPresenter
 
   private
 
-    def images
-      Image.where("id IN (?)", @attributes[:ids])
-    end
+  def images
+    Image.where("id IN (?)", @attributes[:ids])
+  end
 end
 ```
 
 #### Using additional attributes
 
-At times you may want to pass through additional attributes to a presenter, for instance if you have a [gallery] shortcode tag and you want to pull out all images for a post, this can be achived using additional attributes with a presenter.
+At times you may want to pass through additional attributes to a presenter, for instance if you have a [gallery] shortcode tag and you want to pull out all images for a post, this can be achieved using additional attributes with a presenter.
 
 ```ruby
 class GalleryPresenter
@@ -199,20 +254,32 @@ class GalleryPresenter
 
   private
 
-    def images
-      @additional_attributes[:images].map &:url
-    end
+  def images
+    @additional_attributes[:images].map &:url
+  end
 end
+```
 
-# The hash containing the images attribute is passed through to the presenter
-# as the additional_attributes argument
+The hash containing the images attribute is passed through to the presenter as the additional_attributes argument to the `process` method.
+
+##### Singleton
+
+```ruby
 Shortcode.process('[gallery]', { images: @post.images })
+```
 
+##### Instance
+
+```ruby
+shortcode = Shortcode.new
+shortcode.process('[gallery]', { images: @post.images })
 ```
 
 #### Registering presenters
 
-To register a presenter simply call `Shortcode.register_presenter` passing the presenter class e.g.
+To register a presenter simply call `register_presenter` passing the presenter class e.g.
+
+##### Singleton
 
 ```ruby
 # A single presenter
@@ -220,10 +287,25 @@ Shortcode.register_presenter(CustomPresenter)
 
 # Or multiple presenters in one call
 Shortcode.register_presenter(CustomPresenter, AnotherPresenter)
+```
 
+##### Instance
+
+```ruby
+shortcode = Shortcode.new
+
+# A single presenter
+shortcode.register_presenter(CustomPresenter)
+
+# Or multiple presenters in one call
+shortcode.register_presenter(CustomPresenter, AnotherPresenter)
 ```
 
 ### Configuration
+
+The following configuration options can be set for both singleton and instances modes of Shortcode.  You can call `setup` multiple times and modify the existing configuration.
+
+#### Singleton
 
 ```ruby
 Shortcode.setup do |config|
@@ -256,6 +338,40 @@ Shortcode.setup do |config|
 end
 ```
 
+#### Instance
+
+```ruby
+shortcode = Shortcode.new
+
+shortcode.setup do |config|
+
+  # the template parser to use
+  config.template_parser = :erb # :erb, :haml, :slim supported, :erb is default
+
+  # location of the template files, default is "app/views/shortcode_templates"
+  config.template_path = "support/templates/erb"
+
+  # a hash of templates passed as strings, if this is set it overrides the
+  # above template_path option. The default is nil
+  config.templates = { gallery: 'template code' }
+
+  # an array of helper modules to make available within templates
+  config.helpers = [CustomerHelper]
+
+  # a list of block tags to support e.g. [quote]Hello World[/quote]
+  config.block_tags = [:quote]
+
+  # a list of self closing tags to support e.g. [youtube id="12345"]
+  config.self_closing_tags = [:youtube]
+
+  # the type of quotes to use for attribute values, default is double quotes (")
+  config.attribute_quote_type = '"'
+
+  # Allows quotes around attributes to be omitted
+  # Defaults to true, quotes must be present around attribute values
+  config.use_attribute_quotes = true
+end
+```
 
 ## Contributing
 

@@ -1,3 +1,16 @@
+## 2.0.0 (May 21, 2017)
+
+Features:
+
+  - Shortcode converted from module to a class
+  - Separate instances of Shortcode have separate configurations
+  - Updated to parslet 1.8.0
+  - Updated to rspec 3.6
+
+Misc:
+
+  - Testing against the latest versions of Rails 5.0 & 5.1
+
 ## 1.1.1 (September 14, 2015)
 
 Features:
