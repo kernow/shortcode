@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "template parsers" do
+describe "template parsers", :type => :singleton_setup do
 
   let(:simple_quote)        { load_fixture :simple_quote }
   let(:simple_quote_output) { load_fixture :simple_quote_output, :html }

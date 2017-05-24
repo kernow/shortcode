@@ -10,7 +10,7 @@ require 'support/presenters/missing_initialize_presenter'
 require 'support/presenters/missing_content_presenter'
 require 'support/presenters/missing_attributes_presenter'
 
-describe Shortcode::Presenter do
+describe Shortcode::Presenter, :type => :singleton_setup do
 
   let(:simple_quote)  { load_fixture :simple_quote }
   let(:item)          { load_fixture :item }
@@ -67,7 +67,7 @@ describe Shortcode::Presenter do
       end
 
       it "adds the presenter to the list" do
-        expect(Shortcode::Presenter.presenters).to include(MyPresenter.for)
+        expect(Shortcode.configuration.presenters).to include(MyPresenter.for)
       end
 
     end
@@ -79,8 +79,8 @@ describe Shortcode::Presenter do
       end
 
       it "adds the presenter to the list" do
-        expect(Shortcode::Presenter.presenters).to include(MyPresenter.for)
-        expect(Shortcode::Presenter.presenters).to include(OtherPresenter.for)
+        expect(Shortcode.configuration.presenters).to include(MyPresenter.for)
+        expect(Shortcode.configuration.presenters).to include(OtherPresenter.for)
       end
 
     end

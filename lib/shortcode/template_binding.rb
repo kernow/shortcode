@@ -1,8 +1,9 @@
 class Shortcode::TemplateBinding
 
-  def initialize(name, attributes=[], content='', additional_attributes=nil)
+  def initialize(name, configuration, attributes=[], content='', additional_attributes=nil)
+    @configuration = configuration
     include_helper_modules
-    presenter   = Shortcode::Presenter.new name, set_attributes(attributes), content, additional_attributes
+    presenter   = Shortcode::Presenter.new name, configuration, set_attributes(attributes), content, additional_attributes
     @name       = name
     @attributes = presenter.attributes
     @content    = presenter.content
@@ -22,11 +23,9 @@ class Shortcode::TemplateBinding
     end
 
     def include_helper_modules
-      return unless Shortcode.configuration.helpers.any?
-      class << self
-        Shortcode.configuration.helpers.each do |helper|
-          include helper
-        end
+      return unless @configuration.helpers.any?
+      @configuration.helpers.each do |helper|
+        extend helper
       end
     end
 

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'parslet/rig/rspec'
 require 'pp'
 
-describe Shortcode do
+describe Shortcode, :type => :singleton_setup do
 
   let(:simple_quote)        { load_fixture :simple_quote }
   let(:simple_quote_output) { load_fixture :simple_quote_output, :html }

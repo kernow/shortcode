@@ -6,7 +6,7 @@ module ShortcodeSpecViewHelper
   end
 end
 
-describe "rails helpers" do
+describe "rails helpers", :type => :singleton_setup do
 
   let(:template)    { load_fixture :rails_helper }
 
