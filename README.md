@@ -36,8 +36,11 @@ Rails versions 4.1, 4.2, 5.0 and 5.1.
 
 Shortcode is very simple to use, simply call the `process` method and pass it a string containing shortcode markup.
 
+You can create multiple instances of `Shortcode` with separate configurations for each.
+
 ```ruby
-Shortcode.process("[quote]Hello World[/quote]")
+shortcode = Shortcode.new
+shortcode.process("[quote]Hello World[/quote]")
 ```
 
 In a Rails app, you can create helper methods to handle your shortcoded content and use them in your views with something similar to `<%= content_html @page.content %>`. Those two helper method can be used if your content contains html to be escaped or not.
@@ -59,9 +62,20 @@ end
 Any tags you wish to use with Shortcode need to be configured in the setup block, there are 2 types of tag, `block_tags` and `self_closing_tags`. Block tags have a matching open and close tag such as `[quote]A quote[/quote]`, self closing tags have no close tag, for example `[gallery]`. To define the tags Shortcode should parse do so in the configuration (in a Rails initializer for example) as follows:
 
 ```ruby
-Shortcode.setup do |config|
+shortcode = Shortcode.new
+shortcode.setup do |config|
   config.block_tags = [:quote, :list]
   config.self_closing_tags = [:gallery, :widget]
+end
+```
+
+Note that you can call the setup block multiple times if need be and add to it.
+
+For example:
+
+```ruby
+shortcode.setup do |config|
+  config.block_tags << :other_tag
 end
 ```
 
@@ -118,7 +132,9 @@ The alternative way to define templates is to set them using the `templates` con
 values containing a template string. For instance:
 
 ```ruby
-Shortcode.setup do |config|
+shortcode = Shortcode.new
+
+shortcode.setup do |config|
   config.templates = { gallery: 'template code' }
 end
 ```
@@ -133,7 +149,9 @@ Note: it's NOT possible to load templates from a config option AND from the file
 If you wish to use custom helper modules in templates you can do so by specifying the helpers in a setup block which should be an array. Methods in the helper modules will then become available within all templates.
 
 ```ruby
-Shortcode.setup do |config|
+shortcode = Shortcode.new
+
+shortcode.setup do |config|
   config.helpers = [CustomHelper, AnotherCustomHelper]
 end
 ```
@@ -167,15 +185,15 @@ class GalleryPresenter
 
   private
 
-    def images
-      Image.where("id IN (?)", @attributes[:ids])
-    end
+  def images
+    Image.where("id IN (?)", @attributes[:ids])
+  end
 end
 ```
 
 #### Using additional attributes
 
-At times you may want to pass through additional attributes to a presenter, for instance if you have a [gallery] shortcode tag and you want to pull out all images for a post, this can be achived using additional attributes with a presenter.
+At times you may want to pass through additional attributes to a presenter, for instance if you have a [gallery] shortcode tag and you want to pull out all images for a post, this can be achieved using additional attributes with a presenter.
 
 ```ruby
 class GalleryPresenter
@@ -199,34 +217,39 @@ class GalleryPresenter
 
   private
 
-    def images
-      @additional_attributes[:images].map &:url
-    end
+  def images
+    @additional_attributes[:images].map &:url
+  end
 end
+```
 
-# The hash containing the images attribute is passed through to the presenter
-# as the additional_attributes argument
-Shortcode.process('[gallery]', { images: @post.images })
+The hash containing the images attribute is passed through to the presenter as the additional_attributes argument to the `process` method.
 
+```ruby
+shortcode = Shortcode.new
+shortcode.process('[gallery]', { images: @post.images })
 ```
 
 #### Registering presenters
 
-To register a presenter simply call `Shortcode.register_presenter` passing the presenter class e.g.
+To register a presenter simply call `register_presenter` passing the presenter class e.g.
 
 ```ruby
+shortcode = Shortcode.new
+
 # A single presenter
-Shortcode.register_presenter(CustomPresenter)
+shortcode.register_presenter(CustomPresenter)
 
 # Or multiple presenters in one call
-Shortcode.register_presenter(CustomPresenter, AnotherPresenter)
-
+shortcode.register_presenter(CustomPresenter, AnotherPresenter)
 ```
 
 ### Configuration
 
 ```ruby
-Shortcode.setup do |config|
+shortcode = Shortcode.new
+
+shortcode.setup do |config|
 
   # the template parser to use
   config.template_parser = :erb # :erb, :haml, :slim supported, :erb is default
@@ -256,6 +279,23 @@ Shortcode.setup do |config|
 end
 ```
 
+### Singleton
+
+You can optionally use Shortcode as a singleton instance with the same configuration throughout.
+
+To do this, you call methods directly on the `Shortcode` class.
+
+For example:
+
+```ruby
+Shortcode.setup do |config|
+  config.block_tags = [:quote]
+end
+
+Shortcode.register_presenter(QuotePresenterClass)
+
+Shortcode.process('[quote]Some quote[/quote]')
+```
 
 ## Contributing
 

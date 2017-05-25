@@ -23,7 +23,7 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
+      expect(Shortcode.process(simple_quote).gsub("\n",'').gsub('>  <', '><')).to eq(simple_quote_output)
     end
 
   end

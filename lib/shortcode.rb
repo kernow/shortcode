@@ -9,32 +9,46 @@ begin
   require 'slim'
 rescue LoadError; end
 
-module Shortcode
-
-  class << self
-    attr_writer :configuration
-  end
-
+class Shortcode
+  # This is providedc for backwards compatibility
   def self.process(string, additional_attributes=nil)
-    Shortcode::Processor.new.process string, additional_attributes
+    singleton.process(string, additional_attributes)
   end
 
-  def self.setup
+  # This is provided for backwards compatibility
+  def self.singleton
+    @instance ||= new
+  end
+
+  # This is providedc for backwards compatibility
+  def self.setup(&prc)
+    singleton.setup(&prc)
+  end
+
+  # This is providedc for backwards compatibility
+  def self.register_presenter(*presenters)
+    singleton.register_presenter(*presenters)
+  end
+
+  def process(string, additional_attributes=nil)
+    Shortcode::Processor.new.process(string, configuration, additional_attributes)
+  end
+
+  def setup
     yield configuration
   end
 
-  def self.register_presenter(*presenters)
+  def register_presenter(*presenters)
     presenters.each do |presenter|
-      Shortcode::Presenter.register presenter
+      configuration.register_presenter(presenter)
     end
   end
 
   private
 
-    def self.configuration
-      @configuration ||= Configuration.new
-    end
-
+  def configuration
+    @configuration ||= Configuration.new
+  end
 end
 
 require 'shortcode/version'
