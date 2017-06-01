@@ -139,10 +139,7 @@ shortcode.setup do |config|
 end
 ```
 
-If the `templates` config option is set all templates will be loaded from this hash, if a shortcode is encountered without a matching key in the `templates` config option
-an exception will be raised.
-
-Note: it's NOT possible to load templates from a config option AND from the file system, you must either load all templates from the file system or define all templates in a config option.
+Note: Templates can be loaded from either the file system or the configuration templates.  If `check_config_templates_first` is set to true (the default value) on the configuration then it will check configuration templates first, and file system templates if it doesn't find one.  If `check_config_templates_first` is set to false on the configuration it will check for a file system template first, and then configuration templates if it doesn't find one.  If it doesn't find a template in either spot then it will raise an error.
 
 ### Custom Helpers
 
@@ -257,9 +254,11 @@ shortcode.setup do |config|
   # location of the template files, default is "app/views/shortcode_templates"
   config.template_path = "support/templates/erb"
 
-  # a hash of templates passed as strings, if this is set it overrides the
-  # above template_path option. The default is nil
+  # a hash of templates passed as strings.
   config.templates = { gallery: 'template code' }
+
+  # a boolean option to set whether configuration templates are checked first or file system templates
+  config.check_config_templates_first = true
 
   # an array of helper modules to make available within templates
   config.helpers = [CustomerHelper]
