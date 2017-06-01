@@ -66,17 +66,18 @@ describe Shortcode::Tag do
   end
 
   context "when templates exist both in configuration and file system" do
-    it 'uses the configuration template when check_config_templates_first is true' do
+    let(:tag) { Shortcode::Tag.new('quote', configuration ) }
+
+    before(:each) do
       configuration.templates[:quote] = '<p><%= @content %></p>'
-      configuration.check_config_templates_first = true
-      tag = Shortcode::Tag.new('quote', configuration )
+    end
+
+    it 'uses the configuration template when check_config_templates_first is true' do
       expect(tag.markup).to eq('<p><%= @content %></p>')
     end
 
     it 'uses the file system template when check_config_templates_first is false' do
-      configuration.templates[:quote] = '<p><%= @content %></p>'
       configuration.check_config_templates_first = false
-      tag = Shortcode::Tag.new('quote', configuration )
 
       expect(tag.markup).to eq(File.open('spec/support/templates/erb/quote.html.erb').read)
     end
