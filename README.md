@@ -278,24 +278,6 @@ shortcode.setup do |config|
 end
 ```
 
-### Singleton
-
-You can optionally use Shortcode as a singleton instance with the same configuration throughout.
-
-To do this, you call methods directly on the `Shortcode` class.
-
-For example:
-
-```ruby
-Shortcode.setup do |config|
-  config.block_tags = [:quote]
-end
-
-Shortcode.register_presenter(QuotePresenterClass)
-
-Shortcode.process('[quote]Some quote[/quote]')
-```
-
 ## Contributing
 
 1. Fork it

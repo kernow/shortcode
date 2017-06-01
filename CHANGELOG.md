@@ -1,3 +1,9 @@
+## 1.2.1 (June 1, 2017)
+
+Misc:
+
+  - Added singleton usage deprecation warnings
+
 ## 1.2.0 (June 1, 2017)
 
 Features:
