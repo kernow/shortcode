@@ -7,11 +7,10 @@ class Shortcode::Tag
   end
 
   def markup
-    return markup_from_config unless configuration.templates.nil?
-    template_files.each do |path|
-      return File.read(path) if File.file? path
-    end
-    raise Shortcode::TemplateNotFound, "Searched in:", template_files
+    template = first_priority_template
+    template = second_priority_template if template.nil?
+    return template unless template.nil?
+    raise Shortcode::TemplateNotFound, "No template found for #{@name} in configuration or files"
   end
 
   def render
@@ -35,12 +34,23 @@ class Shortcode::Tag
     end
   end
 
-  def markup_from_config
-    if configuration.templates.has_key? @name.to_sym
-      configuration.templates[@name.to_sym]
-    else
-      raise Shortcode::TemplateNotFound, "configuration.templates does not contain the key #{@name.to_sym}"
+  def first_priority_template
+    configuration.check_config_templates_first ? markup_from_config : markup_from_file
+  end
+
+  def second_priority_template
+    configuration.check_config_templates_first ? markup_from_file : markup_from_config
+  end
+
+  def markup_from_file
+    template_files.each do |path|
+      return File.read(path) if File.file? path
     end
+    nil
+  end
+
+  def markup_from_config
+    configuration.templates[@name.to_sym]
   end
 
   def template_files

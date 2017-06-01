@@ -8,6 +8,9 @@ class Shortcode::Configuration
   # Allows templates to be set from strings rather than read from the filesystem
   attr_accessor :templates
 
+  # Allows setting whether templates on the configuration are checked first, or templates in the file system
+  attr_accessor :check_config_templates_first
+
   # Assigns helper modules to be included in templates
   attr_accessor :helpers
 
@@ -33,15 +36,16 @@ class Shortcode::Configuration
   attr_accessor :use_attribute_quotes
 
   def initialize
-    @template_parser      = :erb
-    @template_path        = "app/views/shortcode_templates"
-    @templates            = nil
-    @helpers              = []
-    @block_tags           = []
-    @self_closing_tags    = []
-    @attribute_quote_type = '"'
-    @use_attribute_quotes = true
-    @presenters           = {}
+    @template_parser              = :erb
+    @template_path                = "app/views/shortcode_templates"
+    @templates                    = {}
+    @check_config_templates_first = true
+    @helpers                      = []
+    @block_tags                   = []
+    @self_closing_tags            = []
+    @attribute_quote_type         = '"'
+    @use_attribute_quotes         = true
+    @presenters                   = {}
   end
 
   def register_presenter(presenter)
