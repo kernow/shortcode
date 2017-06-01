@@ -1,11 +1,12 @@
-## 2.0.0 (May 21, 2017)
+## 1.2.0 (June 1, 2017)
 
 Features:
 
-  - Shortcode converted from module to a class
-  - Separate instances of Shortcode have separate configurations
+  - Shortcode converted from module to a class (@toddnestor)
+  - Separate instances of Shortcode have separate configurations (@toddnestor)
   - Updated to parslet 1.8.0
   - Updated to rspec 3.6
+  - Template loading can be from configuration or file (@toddnestor)
 
 Misc:
 
