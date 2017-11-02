@@ -3,6 +3,6 @@
 source "https://rubygems.org"
 
 gem "appraisal", "2.2.0"
-gem "rails", "5.0.3"
+gem "rails", "5.0.6"
 
 gemspec path: "../"
