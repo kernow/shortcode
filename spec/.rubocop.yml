@@ -1,0 +1,17 @@
+inherit_from:
+  - ../.rubocop.yml
+
+EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 3
+
+RSpec/NestedGroups:
+  Max: 3

@@ -1,10 +1,9 @@
-require 'spec_helper'
-require 'parslet/rig/rspec'
-require 'pp'
-require 'benchmark'
+require "spec_helper"
+require "parslet/rig/rspec"
+require "pp"
+require "benchmark"
 
 # Uncomment to run performace specs
-
 
 # describe Shortcode do
 

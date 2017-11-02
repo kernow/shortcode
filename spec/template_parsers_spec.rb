@@ -1,7 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-describe "template parsers" do
-
+describe "template parsers", type: :feature do
   let(:simple_quote)        { load_fixture :simple_quote }
   let(:simple_quote_output) { load_fixture :simple_quote_output, :html }
 
@@ -9,7 +8,6 @@ describe "template parsers" do
   let(:configuration) { shortcode.configuration }
 
   context "erb" do
-
     before do
       configuration.block_tags = [:quote]
       configuration.template_parser = :erb
@@ -17,13 +15,11 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      expect(shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
+      expect(shortcode.process(simple_quote).delete("\n")).to eq(simple_quote_output)
     end
-
   end
 
   context "haml" do
-
     before do
       configuration.block_tags = [:quote]
       configuration.template_parser = :haml
@@ -31,13 +27,11 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      expect(shortcode.process(simple_quote).gsub("\n",'').gsub('>  <', '><')).to eq(simple_quote_output)
+      expect(shortcode.process(simple_quote).delete("\n").gsub(">  <", "><")).to eq(simple_quote_output)
     end
-
   end
 
   context "slim" do
-
     before do
       configuration.block_tags = [:quote]
       configuration.template_parser = :slim
@@ -45,9 +39,7 @@ describe "template parsers" do
     end
 
     it "can render a template" do
-      expect(shortcode.process(simple_quote).gsub("\n",'')).to eq(simple_quote_output)
+      expect(shortcode.process(simple_quote).delete("\n")).to eq(simple_quote_output)
     end
-
   end
-
 end

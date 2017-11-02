@@ -1,0 +1,68 @@
+###########################
+# Configuration for rubocop
+# in .rubocop.yml
+# Most of these are disabling existing cops, primarily
+# due to a smattering of different styles and loose
+# guidlines for contributions.
+#
+# Any of these may be changed.
+
+require: rubocop-rspec
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# START Ruby 2.4 editions (these are disabled for the upgrade, reenable after
+#       if you wish)
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Performance/RegexpMatch:
+  Enabled: false
+# END Ruby 2.4 editions
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+
+Layout/EmptyLinesAroundModuleBody:
+  EnforcedStyle: empty_lines
+
+Style/Lambda:
+  EnforcedStyle: literal
+  # SupportedStyles:
+  #   - line_count_dependent
+  #   - lambda
+  #   - literal
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Performance/Casecmp:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+LineLength:
+  Max: 110
+
+Metrics/MethodLength:
+  Max: 14

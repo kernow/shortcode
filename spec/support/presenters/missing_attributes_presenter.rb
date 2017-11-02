@@ -1,12 +1,9 @@
 class MissingAttributesPresenter
 
-  def initialize
-  end
+  def initialize; end
 
-  def self.for
-  end
+  def self.for; end
 
-  def content
-  end
+  def content; end
 
 end

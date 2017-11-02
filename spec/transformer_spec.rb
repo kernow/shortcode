@@ -1,14 +1,14 @@
-require 'spec_helper'
-require 'parslet/rig/rspec'
-require 'pp'
+require "spec_helper"
+require "parslet/rig/rspec"
+require "pp"
 
 describe Shortcode do
   let(:configuration) {
-    Shortcode.new.tap { |s|
+    described_class.new.tap { |s|
       s.setup do |config|
         config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
-        config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper]
-        config.self_closing_tags = [:timeline_event, :timeline_info]
+        config.block_tags = %i[quote collapsible_list item timeline_person rails_helper]
+        config.self_closing_tags = %i[timeline_event timeline_info]
       end
     }.configuration
   }
@@ -40,91 +40,73 @@ describe Shortcode do
   let(:block_with_whitespace_output) { load_fixture :block_with_whitespace_output, :html }
 
   context "simple_quote" do
-
     it "converts into html" do
       obj = parser.parse(simple_quote)
       html = transformer.apply obj, additional_attributes: nil
-      expect(html.gsub("\n", '')).to eq(simple_quote_output)
+      expect(html.delete("\n")).to eq(simple_quote_output)
     end
-
   end
 
   context "full_quote" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(full_quote), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(full_quote_output)
+      expect(html.delete("\n")).to eq(full_quote_output)
     end
-
   end
 
   context "quote_with_extras" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(quote_with_extras), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(quote_with_extras_output)
+      expect(html.delete("\n")).to eq(quote_with_extras_output)
     end
-
   end
 
   context "simple_list" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(simple_list), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(simple_list_output)
+      expect(html.delete("\n")).to eq(simple_list_output)
     end
-
   end
 
   context "timeline_event" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_event), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(timeline_event_output)
+      expect(html.delete("\n")).to eq(timeline_event_output)
     end
-
   end
 
   context "timeline_info" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_info), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(timeline_info_output)
+      expect(html.delete("\n")).to eq(timeline_info_output)
     end
-
   end
 
   context "timeline_person" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(timeline_person), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(timeline_person_output)
+      expect(html.delete("\n")).to eq(timeline_person_output)
     end
-
   end
 
   context "complex_snippet" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(complex_snippet), additional_attributes: nil)
-      expect(html.gsub("\n", '')).to eq(complex_snippet_output)
+      expect(html.delete("\n")).to eq(complex_snippet_output)
     end
   end
 
   context "erb templates" do
-
     it "converts into html" do
       html = transformer.apply(parser.parse(simple_quote), additional_attributes: nil)
-      expect(html.gsub("\n",'')).to eq(simple_quote_output)
+      expect(html.delete("\n")).to eq(simple_quote_output)
     end
   end
 
-  context 'whitespace' do
-
-    it 'is preserved after a block tag' do
+  context "whitespace" do
+    it "is preserved after a block tag" do
       html = transformer.apply(parser.parse(block_with_whitespace), additional_attributes: nil)
-      expect(html.gsub("\n",'')).to eq(block_with_whitespace_output)
+      expect(html.delete("\n")).to eq(block_with_whitespace_output)
     end
-
   end
 end

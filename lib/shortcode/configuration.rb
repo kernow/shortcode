@@ -1,4 +1,5 @@
 class Shortcode::Configuration
+
   # Sets the template parser to use, supports :erb, :haml, and :slim, default is :haml
   attr_accessor :template_parser
 
@@ -32,7 +33,7 @@ class Shortcode::Configuration
   # Set the quotation sign used for attribute values. Defaults to double quote (")
   attr_accessor :attribute_quote_type
 
-  # Allows quotes around attributes to be omitted. Defaults to false (quotes must be present around the value).
+  # Allows quotes around attributes to be omitted. Defaults to false (quotes must be present around the value)
   attr_accessor :use_attribute_quotes
 
   def initialize
@@ -51,4 +52,5 @@ class Shortcode::Configuration
   def register_presenter(presenter)
     Shortcode::Presenter.register(self, presenter)
   end
+
 end

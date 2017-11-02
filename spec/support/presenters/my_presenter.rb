@@ -4,16 +4,15 @@ class MyPresenter
     :quote
   end
 
-  def initialize(attributes, content, additional_attributes)
+  def initialize(_attributes, content, additional_attributes)
     @content = content
     @additional_attributes = additional_attributes
   end
 
-  def content
-    @content
-  end
+  attr_reader :content
 
   def attributes
     @additional_attributes || { title: "my custom title" }
   end
+
 end

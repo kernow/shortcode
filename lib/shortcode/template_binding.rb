@@ -1,16 +1,20 @@
 class Shortcode::TemplateBinding
 
-  def initialize(name, configuration, attributes=[], content='', additional_attributes=nil)
+  def initialize(name, configuration, attributes=[], content="", additional_attributes=nil)
     @configuration = configuration
     include_helper_modules
-    presenter      = Shortcode::Presenter.new name, configuration, set_attributes(attributes), content, additional_attributes
-    @name          = name
-    @attributes    = presenter.attributes
-    @content       = presenter.content
+    presenter = Shortcode::Presenter.new name,
+                                         configuration,
+                                         map_attributes(attributes),
+                                         content,
+                                         additional_attributes
+    @name = name
+    @attributes = presenter.attributes
+    @content = presenter.content
   end
 
   # Expose private binding() method for use with erb templates
-  def get_binding
+  def expose_binding
     binding
   end
 
@@ -18,7 +22,7 @@ class Shortcode::TemplateBinding
 
   attr_reader :configuration
 
-  def set_attributes(attributes)
+  def map_attributes(attributes)
     hash = {}
     attributes.each { |o| hash[o[:key].to_sym] = o[:value] }
     hash
@@ -31,4 +35,5 @@ class Shortcode::TemplateBinding
       self.class.send(:include, helper)
     end
   end
+
 end
