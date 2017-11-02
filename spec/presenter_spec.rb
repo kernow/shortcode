@@ -12,9 +12,15 @@ require 'support/presenters/missing_attributes_presenter'
 
 describe Shortcode::Presenter do
 
-  let(:configuration) { Shortcode.singleton.send(:configuration) }
+  let(:shortcode) { Shortcode.new }
+  let(:configuration) { shortcode.configuration }
   let(:simple_quote)  { load_fixture :simple_quote }
   let(:item)          { load_fixture :item }
+
+  before do
+    configuration.block_tags = [:quote, :item]
+    configuration.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+  end
 
   describe "using a custom presenter" do
 
@@ -22,15 +28,15 @@ describe Shortcode::Presenter do
     let(:attributes_output) { load_fixture :simple_quote_presenter_attributes_output, :html }
 
     before do
-      Shortcode.register_presenter MyPresenter
+      shortcode.register_presenter MyPresenter
     end
 
     it "uses the custom attributes" do
-      expect(Shortcode.process(simple_quote).gsub("\n",'')).to eq(presenter_output)
+      expect(shortcode.process(simple_quote).gsub("\n",'')).to eq(presenter_output)
     end
 
     it "passes through additional attributes" do
-      expect(Shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'')).to eq(attributes_output)
+      expect(shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'')).to eq(attributes_output)
     end
 
   end
@@ -43,17 +49,17 @@ describe Shortcode::Presenter do
     let(:item_attributes_output)  { load_fixture :item_presenter_attributes_output,         :html }
 
     before do
-      Shortcode.register_presenter MultiplePresenter
+      shortcode.register_presenter MultiplePresenter
     end
 
     it "uses the custom attributes" do
-      expect(Shortcode.process(simple_quote ).gsub("\n",'')).to eq(quote_presenter_output)
-      expect(Shortcode.process(item         ).gsub("\n",'')).to eq(item_presenter_output)
+      expect(shortcode.process(simple_quote ).gsub("\n",'')).to eq(quote_presenter_output)
+      expect(shortcode.process(item         ).gsub("\n",'')).to eq(item_presenter_output)
     end
 
     it "passes through additional attributes" do
-      expect(Shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'')).to eq(quote_attributes_output)
-      expect(Shortcode.process(item,         { title: 'Additional attribute title' }).gsub("\n",'')).to eq(item_attributes_output)
+      expect(shortcode.process(simple_quote, { title: 'Additional attribute title' }).gsub("\n",'')).to eq(quote_attributes_output)
+      expect(shortcode.process(item,         { title: 'Additional attribute title' }).gsub("\n",'')).to eq(item_attributes_output)
     end
 
   end
@@ -63,7 +69,7 @@ describe Shortcode::Presenter do
     describe "registering a single presenter" do
 
       before do
-        Shortcode.register_presenter MyPresenter
+        shortcode.register_presenter MyPresenter
       end
 
       it "adds the presenter to the list" do
@@ -75,7 +81,7 @@ describe Shortcode::Presenter do
     describe "registering multiple presenters" do
 
       before do
-        Shortcode.register_presenter(MyPresenter, OtherPresenter)
+        shortcode.register_presenter(MyPresenter, OtherPresenter)
       end
 
       it "adds the presenter to the list" do
@@ -92,7 +98,7 @@ describe Shortcode::Presenter do
     describe "missing #for class method" do
 
       it "raises an exception" do
-        expect { Shortcode.register_presenter MissingForPresenter }.to raise_error(ArgumentError, "The presenter must define the class method #for")
+        expect { shortcode.register_presenter MissingForPresenter }.to raise_error(ArgumentError, "The presenter must define the class method #for")
       end
 
     end
@@ -100,7 +106,7 @@ describe Shortcode::Presenter do
     describe "missing #initialize method" do
 
       it "raises an exception" do
-        expect { Shortcode.register_presenter MissingInitializePresenter }.to raise_error(ArgumentError, "The presenter must define an initialize method")
+        expect { shortcode.register_presenter MissingInitializePresenter }.to raise_error(ArgumentError, "The presenter must define an initialize method")
       end
 
     end
@@ -108,7 +114,7 @@ describe Shortcode::Presenter do
     describe "missing #content method" do
 
       it "raises an exception" do
-        expect { Shortcode.register_presenter MissingContentPresenter }.to raise_error(ArgumentError, "The presenter must define the method #content")
+        expect { shortcode.register_presenter MissingContentPresenter }.to raise_error(ArgumentError, "The presenter must define the method #content")
       end
 
     end
@@ -116,7 +122,7 @@ describe Shortcode::Presenter do
     describe "missing #attributes method" do
 
       it "raises an exception" do
-        expect { Shortcode.register_presenter MissingAttributesPresenter }.to raise_error(ArgumentError, "The presenter must define the method #attributes")
+        expect { shortcode.register_presenter MissingAttributesPresenter }.to raise_error(ArgumentError, "The presenter must define the method #attributes")
       end
 
     end

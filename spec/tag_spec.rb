@@ -1,7 +1,13 @@
 require 'spec_helper'
 
 describe Shortcode::Tag do
-  let(:configuration) { Shortcode.singleton.send(:configuration) }
+  let(:configuration) {
+    Shortcode.new.tap { |s|
+      s.setup do |config|
+        config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+      end
+    }.configuration
+  }
 
   context "when the template file is missing" do
 
@@ -15,13 +21,11 @@ describe Shortcode::Tag do
 
   context "when an unsupported template parser is specified" do
 
-    let(:tag) { Shortcode::Tag.new('quote', configuration) }
-
     before(:each) do
-      Shortcode.setup do |config|
-        config.template_parser = :something_crazy
-      end
+      configuration.template_parser = :something_crazy
     end
+
+    let(:tag) { Shortcode::Tag.new('quote', configuration) }
 
     it "raises a TemplateNotFound error when the file doesn't exists" do
       expect { tag.render }.to raise_error(Shortcode::TemplateParserNotSupported)
@@ -34,11 +38,7 @@ describe Shortcode::Tag do
     let(:tag) { Shortcode::Tag.new('from_string', configuration, [{ key: 'string', value: 'batman' }]) }
 
     before(:each) do
-      Shortcode.setup do |config|
-        config.templates = {
-          from_string: '<p><%= @attributes[:string] %></p>'
-        }
-      end
+      configuration.templates[:from_string] = '<p><%= @attributes[:string] %></p>'
     end
 
     it "renders a template from a string" do
@@ -52,11 +52,7 @@ describe Shortcode::Tag do
     let(:tag) { Shortcode::Tag.new('missing', configuration, [{ key: 'string', value: 'batman' }]) }
 
     before(:each) do
-      Shortcode.setup do |config|
-        config.templates = {
-          from_string: '<p><%= @attributes[:string] %></p>'
-        }
-      end
+      configuration.templates[:from_string] = '<p><%= @attributes[:string] %></p>'
     end
 
     it "raises an error" do

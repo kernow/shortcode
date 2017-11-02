@@ -3,9 +3,17 @@ require 'parslet/rig/rspec'
 require 'pp'
 
 describe Shortcode do
-  configuration = Shortcode.singleton.send(:configuration)
-  let(:parser)      { Shortcode::Parser.new(configuration) }
-  let(:transformer) { Shortcode::Transformer.new(configuration) }
+  let(:configuration) {
+    Shortcode.new.tap { |s|
+      s.setup do |config|
+        config.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
+        config.block_tags = [:quote, :collapsible_list, :item, :timeline_person, :rails_helper]
+        config.self_closing_tags = [:timeline_event, :timeline_info]
+      end
+    }.configuration
+  }
+  let(:parser)        { Shortcode::Parser.new(configuration) }
+  let(:transformer)   { Shortcode::Transformer.new(configuration) }
 
   let(:simple_quote)          { load_fixture :simple_quote }
   let(:full_quote)            { load_fixture :full_quote }

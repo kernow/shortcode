@@ -3,7 +3,8 @@ require 'parslet/rig/rspec'
 require 'pp'
 
 describe Shortcode::Parser do
-  configuration = Shortcode.singleton.send(:configuration)
+
+  let(:configuration) { Shortcode.new.configuration }
   let(:parser) { Shortcode::Parser.new(configuration) }
 
   let(:simple_quote)      { load_fixture :simple_quote }
@@ -31,9 +32,7 @@ describe Shortcode::Parser do
     context "with the smaller tag listed first" do
 
       before do
-        Shortcode.setup do |config|
-          config.block_tags = [:xx, :xxx]
-        end
+        configuration.block_tags = [:xx, :xxx]
       end
 
       it "parses xx" do
@@ -49,9 +48,7 @@ describe Shortcode::Parser do
     context "with the smaller tag listed last" do
 
       before do
-        Shortcode.setup do |config|
-          config.block_tags = [:xxx, :xx]
-        end
+        configuration.block_tags = [:xxx, :xx]
       end
 
       it "parses xx" do
@@ -69,9 +66,7 @@ describe Shortcode::Parser do
   context "attribute_quote_type configuration" do
 
     before do
-      Shortcode.setup do |config|
-        config.attribute_quote_type = "'"
-      end
+      configuration.attribute_quote_type = "'"
     end
 
     it "parses quotes using custom quotations" do
@@ -86,9 +81,7 @@ describe Shortcode::Parser do
   context "use_attribute_quotes configuration" do
 
     before do
-      Shortcode.setup do |config|
-        config.use_attribute_quotes = false
-      end
+      configuration.use_attribute_quotes = false
     end
 
     it "parses shortcodes with optional quotes" do
@@ -119,6 +112,10 @@ describe Shortcode::Parser do
 
       let(:parsed_object) { parser.parse(simple_quote) }
 
+      before do
+        configuration.block_tags = [:quote]
+      end
+
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{ open: "quote", options: [], inner: [{ text: "hello" }], close: "quote" }])
       end
@@ -128,6 +125,10 @@ describe Shortcode::Parser do
     context "full_quote" do
 
       let(:parsed_object) { parser.parse(full_quote) }
+
+      before do
+        configuration.block_tags = [:quote]
+      end
 
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{
@@ -146,6 +147,10 @@ describe Shortcode::Parser do
     context "quote_with_extras" do
 
       let(:parsed_object) { parser.parse(quote_with_extras) }
+
+      before do
+        configuration.block_tags = [:quote]
+      end
 
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([
@@ -167,6 +172,10 @@ describe Shortcode::Parser do
     context "simple_list" do
 
       let(:parsed_object) { parser.parse(simple_list) }
+
+      before do
+        configuration.block_tags = [:collapsible_list, :item]
+      end
 
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{
@@ -200,6 +209,10 @@ describe Shortcode::Parser do
 
       let(:parsed_object) { parser.parse(timeline_event) }
 
+      before do
+        configuration.self_closing_tags = [:timeline_event]
+      end
+
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{
           open_close: "timeline_event",
@@ -217,6 +230,10 @@ describe Shortcode::Parser do
 
       let(:parsed_object) { parser.parse(timeline_info) }
 
+      before do
+        configuration.self_closing_tags = [:timeline_info]
+      end
+
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{
           open_close: "timeline_info",
@@ -232,6 +249,10 @@ describe Shortcode::Parser do
     context "timeline_person" do
 
       let(:parsed_object) { parser.parse(timeline_person) }
+
+      before do
+        configuration.block_tags = [:timeline_person]
+      end
 
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{
@@ -254,6 +275,10 @@ describe Shortcode::Parser do
     context "complex_snippet" do
 
       let(:parsed_object) { parser.parse(complex_snippet) }
+
+      before do
+        configuration.block_tags = [:quote, :collapsible_list, :item]
+      end
 
       it "created the expected object" do
         expect(parsed_object[:body]).to eq([{
