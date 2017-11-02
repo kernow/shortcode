@@ -10,8 +10,8 @@ rvm:
 sudo: false
 
 script:
-  - bundle exec rspec
-  - bundle exec rubocop
+  - bin/rspec
+  - bin/rubocop
 
 before_install:
   - gem install bundler -v 1.15.0
