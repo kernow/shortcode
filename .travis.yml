@@ -14,7 +14,7 @@ script:
   - bin/rubocop
 
 before_install:
-  - gem install bundler -v 1.15.0
+  - gem install bundler -v 1.16.0
 
 matrix:
   allow_failures:
