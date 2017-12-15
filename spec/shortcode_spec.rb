@@ -13,7 +13,7 @@ describe Shortcode do
     configuration.template_path = File.join File.dirname(__FILE__), "support/templates/erb"
   end
 
-  context "simple_quote" do
+  context "with simple_quote" do
     before do
       configuration.block_tags = [:quote]
     end
@@ -23,7 +23,7 @@ describe Shortcode do
     end
   end
 
-  context "erb templates" do
+  context "with erb templates" do
     before do
       configuration.block_tags = [:quote]
     end
@@ -33,8 +33,8 @@ describe Shortcode do
     end
   end
 
-  context "configuration" do
-    describe "block_tags" do
+  describe "configuration" do
+    context "with block_tags" do
       before do
         configuration.block_tags = []
       end
@@ -44,7 +44,7 @@ describe Shortcode do
       end
     end
 
-    describe "self_closing_tags" do
+    context "with self_closing_tags" do
       before do
         configuration.self_closing_tags = []
       end
@@ -55,12 +55,12 @@ describe Shortcode do
     end
   end
 
-  context "multiple instances" do
+  context "with multiple instances" do
     it "allows having multiple Shortcode instances that have independent configurations" do
       expect(described_class.new.configuration).not_to be(described_class.new.configuration)
     end
 
-    context "configuration" do
+    describe "configuration" do
       let(:shortcode1) { described_class.new }
       let(:shortcode2) { described_class.new }
 

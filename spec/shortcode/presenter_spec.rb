@@ -63,8 +63,8 @@ describe Shortcode::Presenter do
     end
   end
 
-  context "presenter registration" do
-    describe "registering a single presenter" do
+  describe "presenter registration" do
+    context "when registering a single presenter" do
       before do
         shortcode.register_presenter MyPresenter
       end
@@ -74,7 +74,7 @@ describe Shortcode::Presenter do
       end
     end
 
-    describe "registering multiple presenters" do
+    context "when registering multiple presenters" do
       before do
         shortcode.register_presenter(MyPresenter, OtherPresenter)
       end
@@ -86,29 +86,29 @@ describe Shortcode::Presenter do
     end
   end
 
-  context "presenter validation" do
-    describe "missing #for class method" do
+  describe "presenter validation" do
+    context "when missing #for class method" do
       it "raises an exception" do
         expect { shortcode.register_presenter MissingForPresenter }
           .to raise_error(ArgumentError, "The presenter must define the class method #for")
       end
     end
 
-    describe "missing #initialize method" do
+    context "when missing #initialize method" do
       it "raises an exception" do
         expect { shortcode.register_presenter MissingInitializePresenter }
           .to raise_error(ArgumentError, "The presenter must define an initialize method")
       end
     end
 
-    describe "missing #content method" do
+    context "when missing #content method" do
       it "raises an exception" do
         expect { shortcode.register_presenter MissingContentPresenter }
           .to raise_error(ArgumentError, "The presenter must define the method #content")
       end
     end
 
-    describe "missing #attributes method" do
+    context "when missing #attributes method" do
       it "raises an exception" do
         expect { shortcode.register_presenter MissingAttributesPresenter }
           .to raise_error(ArgumentError, "The presenter must define the method #attributes")

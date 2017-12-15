@@ -1,4 +1,5 @@
-# rubocop:disable RSpec/ExampleLength
+# rubocop:disable Lint/MissingCopEnableDirective, RSpec/ExampleLength
+
 require "spec_helper"
 require "parslet/rig/rspec"
 require "pp"
@@ -57,7 +58,7 @@ describe Shortcode::Parser do
     end
   end
 
-  context "attribute_quote_type configuration" do
+  context "with attribute_quote_type configuration" do
     before do
       configuration.attribute_quote_type = "'"
     end
@@ -70,7 +71,7 @@ describe Shortcode::Parser do
     end
   end
 
-  context "use_attribute_quotes configuration" do
+  context "with use_attribute_quotes configuration" do
     before do
       configuration.use_attribute_quotes = false
     end
@@ -97,7 +98,7 @@ describe Shortcode::Parser do
   end
 
   describe "parsed strings" do
-    context "simple_quote" do
+    context "with simple_quote" do
       let(:parsed_object) { parser.parse(simple_quote) }
 
       before do
@@ -110,7 +111,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "full_quote" do
+    context "with full_quote" do
       let(:parsed_object) { parser.parse(full_quote) }
 
       before do
@@ -130,7 +131,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "quote_with_extras" do
+    context "with quote_with_extras" do
       let(:parsed_object) { parser.parse(quote_with_extras) }
 
       before do
@@ -153,7 +154,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "simple_list" do
+    context "with simple_list" do
       let(:parsed_object) { parser.parse(simple_list) }
 
       before do
@@ -187,7 +188,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "timeline_event" do
+    context "with timeline_event" do
       let(:parsed_object) { parser.parse(timeline_event) }
 
       before do
@@ -206,7 +207,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "timeline_info" do
+    context "with timeline_info" do
       let(:parsed_object) { parser.parse(timeline_info) }
 
       before do
@@ -224,7 +225,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "timeline_person" do
+    context "with timeline_person" do
       let(:parsed_object) { parser.parse(timeline_person) }
 
       before do
@@ -248,7 +249,7 @@ describe Shortcode::Parser do
       end
     end
 
-    context "complex_snippet" do
+    context "with complex_snippet" do
       let(:parsed_object) { parser.parse(complex_snippet) }
 
       before do

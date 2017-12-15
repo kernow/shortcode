@@ -29,7 +29,7 @@ describe Shortcode::Tag do
     end
   end
 
-  context "templates from strings" do
+  context "with templates from strings" do
     let(:tag) { described_class.new("from_string", configuration, [{ key: "string", value: "batman" }]) }
 
     before do

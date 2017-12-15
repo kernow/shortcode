@@ -6,9 +6,7 @@ class Shortcode::Presenter
   end
 
   def self.validate(presenter)
-    unless presenter.respond_to?(:for)
-      raise ArgumentError, "The presenter must define the class method #for"
-    end
+    raise ArgumentError, "The presenter must define the class method #for" unless presenter.respond_to?(:for)
     unless presenter.private_instance_methods(false).include?(:initialize)
       raise ArgumentError, "The presenter must define an initialize method"
     end

@@ -7,7 +7,7 @@ describe "template parsers", type: :feature do
   let(:shortcode) { Shortcode.new }
   let(:configuration) { shortcode.configuration }
 
-  context "erb" do
+  context "with erb" do
     before do
       configuration.block_tags = [:quote]
       configuration.template_parser = :erb
@@ -19,7 +19,7 @@ describe "template parsers", type: :feature do
     end
   end
 
-  context "haml" do
+  context "with haml" do
     before do
       configuration.block_tags = [:quote]
       configuration.template_parser = :haml
@@ -31,7 +31,7 @@ describe "template parsers", type: :feature do
     end
   end
 
-  context "slim" do
+  context "with slim" do
     before do
       configuration.block_tags = [:quote]
       configuration.template_parser = :slim
