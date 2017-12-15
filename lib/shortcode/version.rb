@@ -1,5 +1,5 @@
 class Shortcode
 
-  VERSION = "2.0.0.pre".freeze
+  VERSION = "2.0.0".freeze
 
 end

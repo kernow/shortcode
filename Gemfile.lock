@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shortcode (1.2.1)
+    shortcode (2.0.0)
       parslet (= 1.8.0)
 
 GEM
@@ -185,4 +185,4 @@ DEPENDENCIES
   slim (~> 3.0)
 
 BUNDLED WITH
-   1.15.4
+   1.16.0
