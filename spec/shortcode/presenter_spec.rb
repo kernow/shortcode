@@ -7,6 +7,7 @@ require "support/presenters/other_presenter"
 require "support/presenters/multiple_presenter"
 require "support/presenters/missing_for_presenter"
 require "support/presenters/missing_initialize_presenter"
+require "support/presenters/child_presenter"
 require "support/presenters/missing_content_presenter"
 require "support/presenters/missing_attributes_presenter"
 
@@ -98,6 +99,13 @@ describe Shortcode::Presenter do
       it "raises an exception" do
         expect { shortcode.register_presenter MissingInitializePresenter }
           .to raise_error(ArgumentError, "The presenter must define an initialize method")
+      end
+    end
+
+    context "when initialize exists on non-Object ancestor class" do
+      it "does not raise an exception" do
+        expect { shortcode.register_presenter ChildPresenter }
+          .not_to raise_error
       end
     end
 
