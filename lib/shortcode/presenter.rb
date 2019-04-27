@@ -7,15 +7,19 @@ class Shortcode::Presenter
 
   def self.validate(presenter)
     raise ArgumentError, "The presenter must define the class method #for" unless presenter.respond_to?(:for)
-    unless presenter.private_instance_methods(false).include?(:initialize)
-      raise ArgumentError, "The presenter must define an initialize method"
-    end
+    raise ArgumentError, "The presenter must define an initialize method" unless init_defined?(presenter)
 
     %w[content attributes].each do |method|
       unless presenter.method_defined?(method.to_sym)
         raise ArgumentError, "The presenter must define the method ##{method}"
       end
     end
+  end
+
+  def self.init_defined?(presenter)
+    return false if presenter == Object
+
+    presenter.private_instance_methods(false).include?(:initialize) || init_defined?(presenter.superclass)
   end
 
   def initialize(name, configuration, attributes, content, additional_attributes)
