@@ -20,13 +20,13 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "parslet", "1.8.0"
 
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "coveralls", "~> 0.8"
+  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "coveralls", "~> 0.8.22"
   spec.add_development_dependency "haml", "~> 5.0"
-  spec.add_development_dependency "rails", "5.1.4"
+  spec.add_development_dependency "rails", "5.2.3"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.7"
-  spec.add_development_dependency "rubocop", "~> 0.52"
-  spec.add_development_dependency "rubocop-rspec", "~> 1.21"
+  spec.add_development_dependency "rubocop", "~> 0.68"
+  spec.add_development_dependency "rubocop-rspec", "~> 1.32"
   spec.add_development_dependency "slim", "~> 3.0"
 end
