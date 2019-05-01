@@ -10,6 +10,7 @@ class Shortcode::Presenter
     unless presenter.private_instance_methods(false).include?(:initialize)
       raise ArgumentError, "The presenter must define an initialize method"
     end
+
     %w[content attributes].each do |method|
       unless presenter.method_defined?(method.to_sym)
         raise ArgumentError, "The presenter must define the method ##{method}"
@@ -35,6 +36,7 @@ class Shortcode::Presenter
 
   def initialize_custom_presenter(name)
     return unless configuration.presenters.key?(name.to_sym)
+
     presenter   = configuration.presenters[name.to_sym].new(@attributes, @content, @additional_attributes)
     @attributes = presenter.attributes
     @content    = presenter.content

@@ -25,14 +25,14 @@ class Shortcode::Transformer
 
     klass.rule(text: klass.send(:simple, :text)) { String(text) }
     klass.rule(
-      open:     klass.send(:simple, :name),
-      options:  klass.send(:subtree, :options),
-      inner:    klass.send(:sequence, :inner),
-      close:    klass.send(:simple, :name)
+      open: klass.send(:simple, :name),
+      options: klass.send(:subtree, :options),
+      inner: klass.send(:sequence, :inner),
+      close: klass.send(:simple, :name)
     ) { Shortcode::Tag.new(name.to_s, config, options, inner.join, additional_attributes).render }
     klass.rule(
       open_close: klass.send(:simple, :name),
-      options:    klass.send(:subtree, :options)
+      options: klass.send(:subtree, :options)
     ) { Shortcode::Tag.new(name.to_s, config, options, "", additional_attributes).render }
 
     klass.rule(body: klass.send(:sequence, :strings)) { strings.join }

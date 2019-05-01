@@ -14,6 +14,7 @@ class Shortcode::Tag
     template = first_priority_template
     template = second_priority_template if template.nil?
     return template unless template.nil?
+
     raise Shortcode::TemplateNotFound, "No template found for #{@name} in configuration or files"
   end
 

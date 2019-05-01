@@ -29,9 +29,6 @@ Style/SafeNavigation:
 
 Style/NumericPredicate:
   Enabled: false
-
-Performance/RegexpMatch:
-  Enabled: false
 # END Ruby 2.4 editions
 
 Layout/SpaceAroundEqualsInParameterDefault:
@@ -54,9 +51,6 @@ Style/Lambda:
   #   - literal
 
 Style/ClassAndModuleChildren:
-  Enabled: false
-
-Performance/Casecmp:
   Enabled: false
 
 Style/Alias:
