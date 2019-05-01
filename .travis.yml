@@ -1,11 +1,10 @@
 language: ruby
 
 rvm:
-  - 2.2.8
-  - 2.3.5
-  - 2.4.2
+  - 2.5.5
+  - 2.6.3
   - ruby-head
-  - jruby-9.1.9.0
+  - jruby-head
 
 sudo: false
 
@@ -14,13 +13,12 @@ script:
   - bin/rubocop
 
 before_install:
-  - gem install bundler -v 1.16.0
+  - gem install bundler -v 2.0.1
 
 matrix:
   allow_failures:
     - rvm: ruby-head
 
 gemfile:
-  - gemfiles/rails_4.2.gemfile
-  - gemfiles/rails_5.0.gemfile
   - gemfiles/rails_5.1.gemfile
+  - gemfiles/rails_5.2.gemfile
