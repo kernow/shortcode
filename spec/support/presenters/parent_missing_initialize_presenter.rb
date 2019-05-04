@@ -1,0 +1,2 @@
+class ParentMissingInitializePresenter
+end
